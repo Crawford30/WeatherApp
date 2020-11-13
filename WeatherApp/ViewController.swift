@@ -89,4 +89,33 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete{
+            
+            weatherLocationsArray.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove  = weatherLocationsArray[sourceIndexPath.row]
+        
+        
+         weatherLocationsArray.remove(at: sourceIndexPath.row)
+        
+        weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
+        
+        
+        
+        
+        
+        
+    }
+    
+    
 }
