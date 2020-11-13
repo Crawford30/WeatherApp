@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LocationListViewController.swift
 //  WeatherApp
 //
 //  Created by JOEL CRAWFORD on 11/13/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LocationListViewController: UIViewController {
     @IBOutlet weak var tabelView: UITableView!
     
     
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 
 //=====Tabel view Extension =====
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         weatherLocationsArray.count
@@ -84,6 +84,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         let weatherLocationObject = weatherLocationsArray[indexPath.row]
         
         cell.textLabel?.text = weatherLocationObject.name
+        
+        cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
         
         return cell
     }

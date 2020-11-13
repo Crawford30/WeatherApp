@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EEBDD319255EE03000072AC6 /* LocationDetailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */; };
 		EED43758255EC69500C42987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED43757255EC69500C42987 /* AppDelegate.swift */; };
 		EED4375A255EC69500C42987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED43759255EC69500C42987 /* SceneDelegate.swift */; };
-		EED4375C255EC69500C42987 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4375B255EC69500C42987 /* ViewController.swift */; };
+		EED4375C255EC69500C42987 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4375B255EC69500C42987 /* LocationListViewController.swift */; };
 		EED4375F255EC69500C42987 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EED4375D255EC69500C42987 /* Main.storyboard */; };
 		EED43761255EC6A700C42987 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EED43760255EC6A700C42987 /* Assets.xcassets */; };
 		EED43764255EC6A700C42987 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EED43762255EC6A700C42987 /* LaunchScreen.storyboard */; };
@@ -36,10 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewViewController.swift; sourceTree = "<group>"; };
 		EED43754255EC69500C42987 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED43757255EC69500C42987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EED43759255EC69500C42987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EED4375B255EC69500C42987 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EED4375B255EC69500C42987 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		EED4375E255EC69500C42987 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EED43760255EC6A700C42987 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EED43763255EC6A700C42987 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -103,7 +105,8 @@
 			children = (
 				EED43757255EC69500C42987 /* AppDelegate.swift */,
 				EED43759255EC69500C42987 /* SceneDelegate.swift */,
-				EED4375B255EC69500C42987 /* ViewController.swift */,
+				EED4375B255EC69500C42987 /* LocationListViewController.swift */,
+				EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */,
 				EED4375D255EC69500C42987 /* Main.storyboard */,
 				EED43760255EC6A700C42987 /* Assets.xcassets */,
 				EED43762255EC6A700C42987 /* LaunchScreen.storyboard */,
@@ -262,7 +265,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EED4375C255EC69500C42987 /* ViewController.swift in Sources */,
+				EEBDD319255EE03000072AC6 /* LocationDetailViewViewController.swift in Sources */,
+				EED4375C255EC69500C42987 /* LocationListViewController.swift in Sources */,
 				EED43788255EC6DA00C42987 /* WeatherLocation.swift in Sources */,
 				EED43758255EC69500C42987 /* AppDelegate.swift in Sources */,
 				EED4375A255EC69500C42987 /* SceneDelegate.swift in Sources */,
