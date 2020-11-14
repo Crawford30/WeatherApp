@@ -36,7 +36,7 @@ class LocationDetailViewViewController: UIViewController {
     func updateUserInterface(){
         dateLabel.text = ""
         placeLabel.text = weatherLocation.name
-        
+        //https://youtu.be/Ga0zEDXRYhg?list=PL9VJ9OpT-IPQx1l2RjVx_n4RqzWyvdlME&t=747
         
     }
 }

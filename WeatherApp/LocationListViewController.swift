@@ -46,9 +46,11 @@ class LocationListViewController: UIViewController {
         
         if tabelView.isEditing {
             tabelView.setEditing(false, animated: true)
-            sender.title? = "Edit"
+            sender.title? = "UnBook Mark"
             
-            addBarButton.isEnabled = false
+            //disabled bar button on editting mode
+            addBarButton.isEnabled = true
+            
         }else {
             
             tabelView.setEditing(true, animated: true)
@@ -60,6 +62,18 @@ class LocationListViewController: UIViewController {
     }
     
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
+        
+        //MapViewID
+        
+        let nextStoryBoard:
+        UIViewController = UIStoryboard(
+            name: "Main", bundle: nil
+        ).instantiateViewController(withIdentifier: "MapViewID") as! MapView
+        // .instantiatViewControllerWithIdentifier() returns AnyObject!
+        // this must be downcast to utilize it
+        nextStoryBoard.modalPresentationStyle = .fullScreen
+
+        self.present(nextStoryBoard, animated: true, completion: nil)
     }
 }
 
@@ -77,8 +91,6 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        
-        
         let cell = tabelView.dequeueReusableCell(withIdentifier: "TabelCell", for: indexPath)
         
         let weatherLocationObject = weatherLocationsArray[indexPath.row]
@@ -91,6 +103,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
+    
+    //Deleting/removing a boook mark a cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete{
@@ -104,19 +118,19 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
+    
+    //FOR moving a cell
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let itemToMove  = weatherLocationsArray[sourceIndexPath.row]
-        
-        
          weatherLocationsArray.remove(at: sourceIndexPath.row)
-        
-        weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
-        
+         weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
         
         
-        
-        
-        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("index tapped; \(weatherLocationsArray[indexPath.row])")
     }
     
     
