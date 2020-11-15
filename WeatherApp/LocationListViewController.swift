@@ -48,9 +48,9 @@ class LocationListViewController: UIViewController {
         //getSavedLocation()
         
         
-      
         
-        loadPlacesData()
+        
+        //loadPlacesData()
         
     }
     
@@ -59,7 +59,7 @@ class LocationListViewController: UIViewController {
     
     
     
-     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func loadPlacesData() {
         
         
@@ -80,57 +80,57 @@ class LocationListViewController: UIViewController {
         
         
         
-//        //--------------------------------------------------------------------------
-//
-//        if UserDefaults.standard.object(forKey: "weather" ) == nil {  // Return if no weather saved
-//
-//            return
-//
-//        }
-//
-//        do {
-//
-//            let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
-//
-//            let newLocationObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
-//
-//            weatherLocationsArray.append(contentsOf: newLocationObject)
-//
-//            DispatchQueue.main.async {
-//
-//                self.tabelView.reloadData()
-//            }
-//
-//
-//            UserDefaults.standard.removeObject(forKey: "weather")
-//
-//
-//        } catch {
-//
-//            print("Problem Decoding Weather data")
-//
-//        }
+        //        //--------------------------------------------------------------------------
+        //
+        //        if UserDefaults.standard.object(forKey: "weather" ) == nil {  // Return if no weather saved
+        //
+        //            return
+        //
+        //        }
+        //
+        //        do {
+        //
+        //            let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
+        //
+        //            let newLocationObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
+        //
+        //            weatherLocationsArray.append(contentsOf: newLocationObject)
+        //
+        //            DispatchQueue.main.async {
+        //
+        //                self.tabelView.reloadData()
+        //            }
+        //
+        //
+        //            UserDefaults.standard.removeObject(forKey: "weather")
+        //
+        //
+        //        } catch {
+        //
+        //            print("Problem Decoding Weather data")
+        //
+        //        }
         
     }
     
-     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     
     
     
     
-//    func loadPlaces(){
-//        let decoded = UserDefaults.standard.object(forKey: "weather") as! Data
-//        let newLocationObject = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! WeatherLocation
-//
-//        weatherLocationsArray.append(newLocationObject)
-//
-//        DispatchQueue.main.async {
-//            self.tabelView.reloadData()
-//
-//            UserDefaults.standard.removeObject(forKey: "weather")
-//        }
-//    }
-
+    //    func loadPlaces(){
+    //        let decoded = UserDefaults.standard.object(forKey: "weather") as! Data
+    //        let newLocationObject = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! WeatherLocation
+    //
+    //        weatherLocationsArray.append(newLocationObject)
+    //
+    //        DispatchQueue.main.async {
+    //            self.tabelView.reloadData()
+    //
+    //            UserDefaults.standard.removeObject(forKey: "weather")
+    //        }
+    //    }
+    
     
     
     
@@ -325,11 +325,29 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        var currentLatValue: Double
+        var currentLongValue: Double
+        var locationName: String
+        var sharedInstanse = WeatherSingleton.shared
+        
         
         if(shouldShowSearchResults) {
             
             print("SELECTED INDEX \(indexPath.row)")
             print("Selected Cell Name \(currentFilteredArray[indexPath.row].name)")
+            
+            currentLatValue = currentFilteredArray[indexPath.row].latitude
+            currentLongValue = currentFilteredArray[indexPath.row].longitude
+            locationName = currentFilteredArray[indexPath.row].name
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
@@ -339,7 +357,19 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             print("SELECTED INDEX \(indexPath.row)")
             print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
             
+            
+            currentLatValue = weatherLocationsArray[indexPath.row].latitude
+            currentLongValue = weatherLocationsArray[indexPath.row].longitude
+            locationName = weatherLocationsArray[indexPath.row].name
+            
+            
         }
+        
+        
+        //=====save the values using singletons on cell tapped when on search or normal mode====
+        sharedInstanse.setLatValue(theValue: currentLatValue)
+        sharedInstanse.setLongValue(theValue: currentLongValue)
+        sharedInstanse.setLocationName(theName: locationName)
         
         
         
