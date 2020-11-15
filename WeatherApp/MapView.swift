@@ -17,7 +17,7 @@ class MapView: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -29,7 +29,7 @@ class MapView: UIViewController, UISearchBarDelegate {
         searchController.searchBar.delegate = self
         present(searchController, animated: true, completion: nil)
         
-       
+        
         
     }
     
@@ -64,14 +64,17 @@ class MapView: UIViewController, UISearchBarDelegate {
         activeSearch.start { (response, error) in
             
             //remove activity indicator
-                           activityIndicator.stopAnimating()
-                           
+            activityIndicator.stopAnimating()
+            
             UIApplication.shared.endIgnoringInteractionEvents()
             
             if response == nil {
                 
-                print("Error occured")
-            
+                
+                self.displayMessage(userMessage: "Error has occured. Please try again!")
+                
+               
+                
             } else {
                 //Remove annotation each time you get a locatiin
                 let annotations = self.myMapView.annotations
@@ -101,7 +104,7 @@ class MapView: UIViewController, UISearchBarDelegate {
                 self.myMapView.setRegion(region, animated: true)
                 
                 
-               
+                
                 
                 
                 
@@ -127,9 +130,42 @@ class MapView: UIViewController, UISearchBarDelegate {
     }
     
     
-
-   
-
+    
+    
+    
+    
+    //============function to display alert messages==================
+    func displayMessage(userMessage: String) -> Void {
+        
+        DispatchQueue.main.async {
+            
+            let alertController = UIAlertController (title: "Alert", message: userMessage, preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default) {
+                
+                (action: UIAlertAction!) in
+                
+                //==========code in this block will trigger when ok button is tapped============
+                
+                DispatchQueue.main.async {
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+            }
+            
+            alertController.addAction(OKAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
 }
 
 

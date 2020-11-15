@@ -100,6 +100,37 @@ class LocationListViewController: UIViewController {
     
     
     
+    //============function to display alert messages==================
+    func displayMessage(userMessage: String) -> Void {
+        
+        DispatchQueue.main.async {
+            
+            let alertController = UIAlertController (title: "Alert", message: userMessage, preferredStyle: .alert)
+            
+            let OKAction = UIAlertAction(title: "OK", style: .default) {
+                
+                (action: UIAlertAction!) in
+                
+                //==========code in this block will trigger when ok button is tapped============
+                
+                DispatchQueue.main.async {
+                    
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+            }
+            
+            alertController.addAction(OKAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    
+    
+    
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func customSearch() {
         
@@ -107,7 +138,7 @@ class LocationListViewController: UIViewController {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search services by name or description"
+        searchController.searchBar.placeholder = "Search for locations by name..."
         searchController.searchBar.tintColor = UIColor.red
         
         //will enable didSelectRowAtIndexPath
@@ -307,7 +338,6 @@ extension LocationListViewController: UISearchResultsUpdating {
         
         
         
-        
     }
     
     
@@ -345,6 +375,8 @@ extension LocationListViewController: UISearchBarDelegate {
         tabelView.reloadData()
     }
 }
+
+
 
 
 
