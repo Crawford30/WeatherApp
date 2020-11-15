@@ -45,37 +45,78 @@ class LocationListViewController: UIViewController {
         weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
         
-        getSavedLocation()
+        //getSavedLocation()
         
+        
+        loadPlacesData()
         
         
     }
     
     
     
-    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     
-    func getSavedLocation() {
+    
+    
+     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    func loadPlacesData() {
         
-        let latValue = UserDefaults.standard.double(forKey: "Latitude")
+        //--------------------------------------------------------------------------
         
-        let  longValue = UserDefaults.standard.double(forKey:" Longitude")
-        
-        let streetName = UserDefaults.standard.string(forKey: "StreetName") ?? "Unkown"
-        
-        
-        let newLocations = WeatherLocation(name: streetName, latitude: latValue, longitude: longValue)
-        
-        weatherLocationsArray.append(newLocations)
-        
-        DispatchQueue.main.async {
+        if UserDefaults.standard.object(forKey: "weather" ) == nil {  // Return if no weather saved
             
-            self.tabelView.reloadData()
+            return
+            
         }
         
-       
+        do {
+            
+            let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
+            
+            weatherLocationsArray = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
+            
+            DispatchQueue.main.async {
+                
+                self.tabelView.reloadData()
+            }
+            
+            
+            
+        } catch {
+            
+            print("Problem Decoding Weather d=Data")
+            
+        }
         
     }
+    
+     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    
+    
+    
+    
+//    func loadPlaces(){
+//        let placesData = UserDefaults.standard.object(forKey: "weather") as? NSData
+//
+//        if let placesData = placesData {
+//            let placesArray = NSKeyedUnarchiver.unarchiveObject(with: placesData as Data) as? [WeatherLocation]
+//
+//            if let placesArray = placesArray {
+//
+//
+//                weatherLocationsArray.append(contentsOf: placesArray)
+//
+//                tabelView.reloadData()
+//            }
+//
+//        }
+//    }
+//
+    
+    
+    
+    
+    
     
     
     

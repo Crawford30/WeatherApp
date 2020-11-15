@@ -15,7 +15,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var placeMarkerImageView: UIImageView!
     
     @IBOutlet weak var addressLabel: UILabel!
-   
+    
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     var previousLocation: CLLocation?
@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     var long: Double = 0.0
     var streetName = ""
     
+    var newLocationArray: [WeatherLocation] = []
     
     
     
@@ -43,19 +44,33 @@ class MapViewController: UIViewController {
     //=========SAVE CURRENT DATA ON PIN IMAGE TAPPED ======
     @IBAction func saveUserLocation(_ sender: UITapGestureRecognizer) {
         
-        //====save the location on place marker clicked
+        saveNewLocationObject()
         
         print("User location tapped")
         
-        
-        UserDefaults.standard.set(lat, forKey: "Latitude")
-        
-        UserDefaults.standard.set(lat, forKey: "Longitude")
-        
-        UserDefaults.standard.set(streetName, forKey: "StreetName")
-        
-        
+       
         self.dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
+    func saveNewLocationObject() {
+        
+        do {
+            
+            let encodedData = try NSKeyedArchiver.archivedData(withRootObject: newLocationArray, requiringSecureCoding: false)
+            
+            print("NEW LOCATION ARRAY: \(newLocationArray)")
+            
+            UserDefaults.standard.set( encodedData, forKey: "weather" )
+            
+        } catch {
+            
+            print("Problem saving data")
+            
+        }
         
         
     }
@@ -168,14 +183,41 @@ extension MapViewController: MKMapViewDelegate {
             let streetNumber = placemark.subThoroughfare ?? ""
             self.streetName = placemark.thoroughfare ?? "Unkown Place"
             
+            
+            
+            //====save the location on place marker clicked
+            
+            var tempID: WeatherLocation //the class
+            
+            self.newLocationArray = [] // Temporarily clear Array
+           
+            
+            tempID = WeatherLocation.init(name: "", latitude: 0.0, longitude: 0.0)
+           
+            
             //======  Save Results to singleton  when a user click on the image pin and retive them  the Location list vc ========
-
+            
             // print("STREET NAME: \(streetName)")
             DispatchQueue.main.async {
                 self.addressLabel.text = "\(streetNumber) \(self.streetName)"
                 
-                  
+            
+//                print("THIS IS ARRAY OBJECT BEING SAVE: \(tempID)")
+                
+             
+                
             }
+            
+            
+            tempID.latitude = self.lat
+            tempID.longitude = self.long
+            tempID.name = self.streetName
+            
+            
+            print("THIS IS ARRAY OBJECT BEING SAVE: \(tempID)")
+            
+          
+                          
         }
     }
 }

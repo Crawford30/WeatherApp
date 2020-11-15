@@ -9,7 +9,7 @@
 import Foundation
 
 
-class WeatherLocation: Codable{
+class WeatherLocation: NSObject, NSCoding, Codable{
     
     var name: String
     var latitude: Double
@@ -24,7 +24,38 @@ class WeatherLocation: Codable{
     
     
     
-    //======func to get data
+    
+    //=====read from disk==
+    
+    required init(coder aDecoder: NSCoder) {
+        
+        name      = aDecoder.decodeObject(forKey:"name")   as! String
+        latitude  = aDecoder.decodeDouble(forKey: "latitued")
+        longitude = aDecoder.decodeDouble(forKey: "longitude")
+        
+        
+    }
+    
+    
+    
+    
+    //======write to disk======
+    func encode(with coder : NSCoder) {
+        
+        coder.encode(name,  forKey: "name")
+        coder.encode(latitude, forKey: "latitude")
+        coder.encode(longitude, forKey: "longitude")
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    //======func to get data =====
     
     func getData() {
         
@@ -72,7 +103,7 @@ class WeatherLocation: Codable{
         
     }
     
- 
+    
 }
 
 
