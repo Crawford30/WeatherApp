@@ -250,6 +250,50 @@
             </objects>
             <point key="canvasLocation" x="1901.25" y="103.52112676056338"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="OFG-dF-8BP">
+            <objects>
+                <viewController storyboardIdentifier="MapVCID" id="Pfr-JO-dkg" customClass="MapViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ev2-2Y-G1G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQI-Oy-zrt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="gQm-GO-1FZ"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Title" id="sSX-bB-ryb"/>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-d8-BiL">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Pfr-JO-dkg" id="SAK-8Z-7fM"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PQI-Oy-zrt" firstAttribute="trailing" secondItem="led-kT-Kwd" secondAttribute="trailing" id="JoA-4J-62G"/>
+                            <constraint firstItem="PQI-Oy-zrt" firstAttribute="leading" secondItem="ZeR-d8-BiL" secondAttribute="leading" id="MkS-oV-Udo"/>
+                            <constraint firstItem="ZeR-d8-BiL" firstAttribute="top" secondItem="PQI-Oy-zrt" secondAttribute="bottom" id="TPx-ET-SpX"/>
+                            <constraint firstItem="ZeR-d8-BiL" firstAttribute="leading" secondItem="ev2-2Y-G1G" secondAttribute="leading" id="TQQ-XB-Uft"/>
+                            <constraint firstItem="PQI-Oy-zrt" firstAttribute="top" secondItem="led-kT-Kwd" secondAttribute="top" id="dkS-4v-SHi"/>
+                            <constraint firstAttribute="bottom" secondItem="ZeR-d8-BiL" secondAttribute="bottom" id="eCk-74-JHA"/>
+                            <constraint firstAttribute="trailing" secondItem="ZeR-d8-BiL" secondAttribute="trailing" id="njT-7P-BiA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="led-kT-Kwd"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapVC" destination="ZeR-d8-BiL" id="G7f-gR-mSi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IbF-1N-5cF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2566.875" y="103.52112676056338"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="NTO-gc-ppZ">
             <objects>

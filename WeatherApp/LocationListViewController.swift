@@ -80,7 +80,7 @@ class LocationListViewController: UIViewController {
         let nextStoryBoard:
             UIViewController = UIStoryboard(
                 name: "Main", bundle: nil
-            ).instantiateViewController(withIdentifier: "MapViewID") as! MapView
+            ).instantiateViewController(withIdentifier: "MapVCID") as! MapViewController
         
         nextStoryBoard.modalPresentationStyle = .fullScreen
         
