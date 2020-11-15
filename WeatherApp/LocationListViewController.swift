@@ -45,9 +45,39 @@ class LocationListViewController: UIViewController {
         weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
         
+        getSavedLocation()
+        
         
         
     }
+    
+    
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    
+    func getSavedLocation() {
+        
+        let latValue = UserDefaults.standard.double(forKey: "Latitude")
+        
+        let  longValue = UserDefaults.standard.double(forKey:" Longitude")
+        
+        let streetName = UserDefaults.standard.string(forKey: "StreetName") ?? "Unkown"
+        
+        
+        let newLocations = WeatherLocation(name: streetName, latitude: latValue, longitude: longValue)
+        
+        weatherLocationsArray.append(newLocations)
+        
+        DispatchQueue.main.async {
+            
+            self.tabelView.reloadData()
+        }
+        
+       
+        
+    }
+    
+    
     
     
     

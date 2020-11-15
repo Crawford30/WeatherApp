@@ -12,22 +12,59 @@ import CoreLocation
 
 class MapViewController: UIViewController {
     @IBOutlet weak var mapVC: MKMapView!
+    @IBOutlet weak var placeMarkerImageView: UIImageView!
     
     @IBOutlet weak var addressLabel: UILabel!
-    //    let locaionManager = CLLocationManager()
-    //    let regionInMeters: Double = 10000
-    //    var previousLocation:CLLocation?
-    
+   
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
     var previousLocation: CLLocation?
     
+    
+    var lat: Double = 0.0
+    var long: Double = 0.0
+    var streetName = ""
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        placeMarkerImageView.isUserInteractionEnabled = true
+        
         checkLocationServices()
     }
     
     
+    
+    
+    
+    //=========SAVE CURRENT DATA ON PIN IMAGE TAPPED ======
+    @IBAction func saveUserLocation(_ sender: UITapGestureRecognizer) {
+        
+        //====save the location on place marker clicked
+        
+        print("User location tapped")
+        
+        
+        UserDefaults.standard.set(lat, forKey: "Latitude")
+        
+        UserDefaults.standard.set(lat, forKey: "Longitude")
+        
+        UserDefaults.standard.set(streetName, forKey: "StreetName")
+        
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    
+    
+    
+    //=========================
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -42,6 +79,8 @@ class MapViewController: UIViewController {
     }
     
     
+    
+    //============CHECK LOCATION SERVICE =====
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
@@ -52,6 +91,8 @@ class MapViewController: UIViewController {
     }
     
     
+    
+    //================CHECK AUTH ===========
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
@@ -121,13 +162,19 @@ extension MapViewController: MKMapViewDelegate {
                 return
             }
             
+            self.lat = placemark.location?.coordinate.latitude ?? 0
+            self.long = placemark.location?.coordinate.longitude ?? 0
+            
             let streetNumber = placemark.subThoroughfare ?? ""
-            let streetName = placemark.thoroughfare ?? ""
+            self.streetName = placemark.thoroughfare ?? "Unkown Place"
             
-            print("STREET NAME: \(streetName)")
-            
+            //======  Save Results to singleton  when a user click on the image pin and retive them  the Location list vc ========
+
+            // print("STREET NAME: \(streetName)")
             DispatchQueue.main.async {
-                self.addressLabel.text = "\(streetNumber) \(streetName)"
+                self.addressLabel.text = "\(streetNumber) \(self.streetName)"
+                
+                  
             }
         }
     }
