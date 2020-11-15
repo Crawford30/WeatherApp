@@ -14,209 +14,121 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapVC: MKMapView!
     
     @IBOutlet weak var addressLabel: UILabel!
-    let locaionManager = CLLocationManager()
+    //    let locaionManager = CLLocationManager()
+    //    let regionInMeters: Double = 10000
+    //    var previousLocation:CLLocation?
+    
+    let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
-    var previousLocation:CLLocation?
+    var previousLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        checkLocationService()
-        
-        
-        
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    func setUpLocationManager() {
-        locaionManager.delegate = self
-        
-        locaionManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        
-        
+        checkLocationServices()
     }
     
     
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
     
     
-    func centerViewOnUerLocation() {
-        
-        if let location =  locaionManager.location?.coordinate {
+    func centerViewOnUserLocation() {
+        if let location = locationManager.location?.coordinate {
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-            
             mapVC.setRegion(region, animated: true)
-            
         }
-        
     }
     
-    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷Check what permsiison a user selected🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            setupLocationManager()
+            checkLocationAuthorization()
+        } else {
+            // Show alert letting the user know they have to turn this on.
+        }
+    }
+    
     
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
-            //Get location
-            
-            startTrackingUserLocation()
-            
-//            break
-            
-            
+            startTackingUserLocation()
         case .denied:
+            // Show alert instructing them how to turn on permissions
             break
         case .notDetermined:
-            
-            //show alert instructing them how to ask for permission
-            locaionManager.requestWhenInUseAuthorization()
-            break
-            
+            locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            
-            //show them an laert
+            // Show an alert letting them know what's up
             break
-            
         case .authorizedAlways:
             break
-            
-//        default:
-//            break
+        @unknown default:
+            break
         }
-        
     }
     
     
-    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
-    
-    func startTrackingUserLocation() {
-        
-        //show user location
+    func startTackingUserLocation() {
         mapVC.showsUserLocation = true
-        
-        centerViewOnUerLocation()
-        
-        locaionManager.startUpdatingLocation()
-        
-        
-        //get previous location
+        centerViewOnUserLocation()
+        locationManager.startUpdatingLocation()
         previousLocation = getCenterLocation(for: mapVC)
-        
     }
     
     
-    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
-    
-    func getCenterLocation(for mapView: MKMapView) -> CLLocation  {
-        let latitude = mapVC.centerCoordinate.latitude
+    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
+        let latitude = mapView.centerCoordinate.latitude
+        let longitude = mapView.centerCoordinate.longitude
         
-        let longitude = mapVC.centerCoordinate.longitude
-        
-        
-        return CLLocation(latitude:latitude, longitude: longitude)
+        return CLLocation(latitude: latitude, longitude: longitude)
     }
-    
-    
-    
-    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
-    func checkLocationService() {
-        
-        if CLLocationManager.locationServicesEnabled(){
-            
-            //set location manager
-            
-            setUpLocationManager()
-            
-            checkLocationAuthorization()
-            
-            
-        } else {
-            //alert to show location
-        }
-        
-    }
-    
-    
-    
-    
 }
+
 
 extension MapViewController: CLLocationManagerDelegate {
     
-    
-    //updating loaction
-    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    //
-    //        //using last loction
-    //        guard let location = locations.last else {
-    //            return
-    //        }
-    //
-    //
-    //        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-    //
-    //        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-    //        mapVC.setRegion(region, animated: true)
-    //    }
-    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
         checkLocationAuthorization()
-        
     }
-    
 }
-
-
 
 
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        
-        
         let center = getCenterLocation(for: mapView)
-        
         let geoCoder = CLGeocoder()
         
         guard let previousLocation = self.previousLocation else { return }
         
-        guard center.distance(from: previousLocation) > 50 else { return}
-        
+        guard center.distance(from: previousLocation) > 50 else { return }
         self.previousLocation = center
         
-        
-        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks,error) in
-            
-            
+        geoCoder.reverseGeocodeLocation(center) { [weak self] (placemarks, error) in
             guard let self = self else { return }
             
             if let _ = error {
-                //alert
+                //TODO: Show alert informing the user
+                return
             }
-            
             
             guard let placemark = placemarks?.first else {
-                
-                //do and return
+                //TODO: Show alert informing the user
                 return
-                
-                
             }
             
-            //set up address
-            
-            let streetNumber =  placemark.subThoroughfare ?? ""
-            
+            let streetNumber = placemark.subThoroughfare ?? ""
             let streetName = placemark.thoroughfare ?? ""
             
-            //
+            print("STREET NAME: \(streetName)")
+            
             DispatchQueue.main.async {
-                self.addressLabel.text =  "\(streetNumber) \(streetName)"
+                self.addressLabel.text = "\(streetNumber) \(streetName)"
             }
-            
-            
-            
         }
     }
 }
