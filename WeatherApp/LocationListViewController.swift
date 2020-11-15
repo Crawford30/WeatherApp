@@ -24,8 +24,11 @@ class LocationListViewController: UIViewController {
         super.viewDidLoad()
         
         //Delegates
-        tabelView.delegate = self
-        tabelView.dataSource  = self
+        self.tabelView.delegate = self
+        self.tabelView.dataSource  = self
+       
+        
+        
         
         var weatherLocation = WeatherLocation(name: "A", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
@@ -66,13 +69,12 @@ class LocationListViewController: UIViewController {
         //MapViewID
         
         let nextStoryBoard:
-        UIViewController = UIStoryboard(
-            name: "Main", bundle: nil
-        ).instantiateViewController(withIdentifier: "MapViewID") as! MapView
-        // .instantiatViewControllerWithIdentifier() returns AnyObject!
-        // this must be downcast to utilize it
+            UIViewController = UIStoryboard(
+                name: "Main", bundle: nil
+            ).instantiateViewController(withIdentifier: "MapViewID") as! MapView
+        
         nextStoryBoard.modalPresentationStyle = .fullScreen
-
+        
         self.present(nextStoryBoard, animated: true, completion: nil)
     }
 }
@@ -103,35 +105,55 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
-    
-    //Deleting/removing a boook mark a cell
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if editingStyle == .delete{
-            
-            weatherLocationsArray.remove(at: indexPath.row)
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0;//Choose your custom row height
     }
     
-    
-    
-    //FOR moving a cell
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let itemToMove  = weatherLocationsArray[sourceIndexPath.row]
-         weatherLocationsArray.remove(at: sourceIndexPath.row)
-         weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
-        
-        
-    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("index tapped; \(weatherLocationsArray[indexPath.row])")
+        
+        print("SELECTED INDEX \(indexPath.row)")
+        print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "DetailVC") as! LocationDetailViewViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
+    
+    
+    
+        //Deleting/removing a boook mark a cell
+        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    
+            if editingStyle == .delete{
+    
+                weatherLocationsArray.remove(at: indexPath.row)
+    
+                tableView.deleteRows(at: [indexPath], with: .fade)
+    
+    
+            }
+        }
+    
+    
+    
+        //FOR moving a cell
+        func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+            let itemToMove  = weatherLocationsArray[sourceIndexPath.row]
+            weatherLocationsArray.remove(at: sourceIndexPath.row)
+            weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
+    
+    
+        }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }
