@@ -153,19 +153,30 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="jwu-Ov-Arp" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3lq-aa-xz1"/>
-                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="894-Dw-crX"/>
-                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="AWS-ky-9sW"/>
                             <constraint firstItem="jwu-Ov-Arp" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="L8h-rV-7Zf"/>
-                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TKE-yN-eAn"/>
                             <constraint firstItem="jwu-Ov-Arp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XeC-jc-3So"/>
-                            <constraint firstItem="jwu-Ov-Arp" firstAttribute="top" secondItem="tYd-Bj-r5M" secondAttribute="bottom" id="nY2-hm-iDo"/>
+                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="44" id="pGo-Qg-823"/>
+                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="q4j-4C-dQ9"/>
+                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tTs-kj-rHQ"/>
+                            <constraint firstItem="tYd-Bj-r5M" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vR2-eB-rWD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9Mm-RX-i2H"/>
+                    <navigationItem key="navigationItem" id="9Mm-RX-i2H">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="yrf-xI-Zro">
+                            <color key="tintColor" red="0.24313725489999999" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="locationSearch:" destination="BYZ-38-t0r" id="BNg-mi-FaX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="w9a-Vq-i2v">
+                            <color key="tintColor" red="0.24313725489999999" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addBarButton" destination="GfS-hN-17d" id="f7D-Eq-tZz"/>
                         <outlet property="editBarButton" destination="XfH-2E-smY" id="8fE-Sz-grE"/>
+                        <outlet property="searchBar" destination="yrf-xI-Zro" id="jzX-PI-uXL"/>
                         <outlet property="tabelView" destination="tYd-Bj-r5M" id="eYQ-xs-Atd"/>
                     </connections>
                 </viewController>

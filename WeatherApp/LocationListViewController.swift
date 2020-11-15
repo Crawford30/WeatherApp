@@ -7,16 +7,25 @@
 //
 
 import UIKit
+import MapKit
 
 class LocationListViewController: UIViewController {
     @IBOutlet weak var tabelView: UITableView!
     
     
+    
+    var searchController: UISearchController!
+    var shouldShowSearchResults: Bool = false
+    
+    
+    @IBOutlet weak var searchBar: UIBarButtonItem!
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     var weatherLocationsArray: [WeatherLocation] = []
+    
+    var currentFilteredArray: [WeatherLocation] = []
     
     
     
@@ -26,7 +35,9 @@ class LocationListViewController: UIViewController {
         //Delegates
         self.tabelView.delegate = self
         self.tabelView.dataSource  = self
-       
+        
+        
+        
         
         
         
@@ -66,6 +77,8 @@ class LocationListViewController: UIViewController {
     
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
         
+        
+        
         //MapViewID
         
         let nextStoryBoard:
@@ -77,7 +90,66 @@ class LocationListViewController: UIViewController {
         
         self.present(nextStoryBoard, animated: true, completion: nil)
     }
+    
+    
+    
+    //MARK:- ==== Location Search Actiom====
+    @IBAction func locationSearch(_ sender: UIBarButtonItem) {
+        customSearch()
+        
+        
+    }
+    
+    
+    
+    
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+    func customSearch() {
+        
+        // Initialize and perform a minimum configuration to the search controller.
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for location by name..."
+        searchController.searchBar.tintColor = UIColor.red
+        
+        //will enable didSelectRowAtIndexPath
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        
+        // Set any properties (in this case, don't hide the nav bar and don't show the emoji keyboard option)
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        
+        
+        present(searchController, animated: true, completion: nil)
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+
+
+
 
 
 
@@ -87,19 +159,48 @@ class LocationListViewController: UIViewController {
 extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        weatherLocationsArray.count
+        
+        if shouldShowSearchResults {
+            
+            return currentFilteredArray.count
+            
+        } else {
+            
+            return weatherLocationsArray.count
+            
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let cell = tabelView.dequeueReusableCell(withIdentifier: "TabelCell", for: indexPath)
         
-        let weatherLocationObject = weatherLocationsArray[indexPath.row]
+        if (shouldShowSearchResults) {
+            
+            let weatherLocationObject = currentFilteredArray[indexPath.row]
+            
+            cell.textLabel?.text = weatherLocationObject.name
+            
+            cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
+            
+            
+            
+        } else {
+            
+            
+            
+            let weatherLocationObject = weatherLocationsArray[indexPath.row]
+            
+            cell.textLabel?.text = weatherLocationObject.name
+            
+            cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
+            
+        }
         
-        cell.textLabel?.text = weatherLocationObject.name
         
-        cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
+        
         
         return cell
     }
@@ -113,8 +214,24 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("SELECTED INDEX \(indexPath.row)")
-        print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
+        
+        
+        if(shouldShowSearchResults) {
+            
+            print("SELECTED INDEX \(indexPath.row)")
+            print("Selected Cell Name \(currentFilteredArray[indexPath.row].name)")
+            
+            
+            
+        } else {
+            
+            
+            print("SELECTED INDEX \(indexPath.row)")
+            print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
+            
+        }
+        
+        
         
         let vc = self.storyboard?.instantiateViewController(identifier: "DetailVC") as! LocationDetailViewViewController
         self.navigationController?.pushViewController(vc, animated: true)
@@ -123,29 +240,51 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     
     
-        //Deleting/removing a boook mark a cell
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    
-            if editingStyle == .delete{
-    
+    //Deleting/removing a boook mark a cell
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete{
+            if shouldShowSearchResults {
+                
+                
+                currentFilteredArray.remove(at: indexPath.row)
+                
+            } else {
                 weatherLocationsArray.remove(at: indexPath.row)
-    
-                tableView.deleteRows(at: [indexPath], with: .fade)
-    
-    
+                
+                
             }
+            
+            
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
         }
+    }
     
     
     
-        //FOR moving a cell
-        func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    //FOR moving a cell
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        if (shouldShowSearchResults) {
+            
+            let itemToMove  = currentFilteredArray[sourceIndexPath.row]
+            currentFilteredArray.remove(at: sourceIndexPath.row)
+            currentFilteredArray.insert(itemToMove, at: destinationIndexPath.row)
+            
+        } else {
+            
             let itemToMove  = weatherLocationsArray[sourceIndexPath.row]
             weatherLocationsArray.remove(at: sourceIndexPath.row)
             weatherLocationsArray.insert(itemToMove, at: destinationIndexPath.row)
-    
-    
+            
         }
+        
+        
+        
+    }
     
     
     
@@ -157,3 +296,72 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     
 }
+
+
+
+
+//🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
+extension LocationListViewController: UISearchResultsUpdating {
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        
+        let searchString = searchController.searchBar.text
+        
+        currentFilteredArray = [] //clear the array
+        
+        currentFilteredArray = weatherLocationsArray.filter({ (item) -> Bool in
+            let locationName: NSString = item.name  as NSString
+            
+            return (locationName.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
+        })
+        
+        tabelView.reloadData()
+        
+        
+        
+        
+    }
+    
+    
+}
+
+
+
+
+extension LocationListViewController: UISearchBarDelegate {
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if !shouldShowSearchResults {
+            
+            shouldShowSearchResults = true
+            tabelView.reloadData()
+        }
+        
+        searchController.searchBar.resignFirstResponder()
+        
+    }
+    
+    
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+        tabelView.reloadData()
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        shouldShowSearchResults = false
+        tabelView.reloadData()
+    }
+}
+
+
+
+
+
+
