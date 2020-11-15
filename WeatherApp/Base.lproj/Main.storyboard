@@ -273,20 +273,41 @@
                                     <outlet property="delegate" destination="Pfr-JO-dkg" id="SAK-8Z-7fM"/>
                                 </connections>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_marker" translatesAutoresizingMaskIntoConstraints="NO" id="aU9-FC-lM3">
+                                <rect key="frame" x="140" y="264" width="40" height="40"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9U-Ii-ssc">
+                                <rect key="frame" x="0.0" y="518" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RGa-kU-aDU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.24313725489999999" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="led-kT-Kwd" firstAttribute="bottom" secondItem="ZeR-d8-BiL" secondAttribute="bottom" id="5nl-RT-who"/>
+                            <constraint firstItem="led-kT-Kwd" firstAttribute="bottom" secondItem="s9U-Ii-ssc" secondAttribute="bottom" id="Iqp-Pu-Cha"/>
                             <constraint firstItem="PQI-Oy-zrt" firstAttribute="trailing" secondItem="led-kT-Kwd" secondAttribute="trailing" id="JoA-4J-62G"/>
                             <constraint firstItem="PQI-Oy-zrt" firstAttribute="leading" secondItem="ZeR-d8-BiL" secondAttribute="leading" id="MkS-oV-Udo"/>
                             <constraint firstItem="ZeR-d8-BiL" firstAttribute="top" secondItem="PQI-Oy-zrt" secondAttribute="bottom" id="TPx-ET-SpX"/>
                             <constraint firstItem="ZeR-d8-BiL" firstAttribute="leading" secondItem="ev2-2Y-G1G" secondAttribute="leading" id="TQQ-XB-Uft"/>
+                            <constraint firstItem="aU9-FC-lM3" firstAttribute="centerX" secondItem="ev2-2Y-G1G" secondAttribute="centerX" id="V3N-Ra-5gH"/>
+                            <constraint firstAttribute="trailing" secondItem="s9U-Ii-ssc" secondAttribute="trailing" id="VfC-KR-Kid"/>
+                            <constraint firstItem="led-kT-Kwd" firstAttribute="bottom" secondItem="aU9-FC-lM3" secondAttribute="bottom" constant="264" id="X8q-tQ-wud"/>
+                            <constraint firstItem="s9U-Ii-ssc" firstAttribute="leading" secondItem="ev2-2Y-G1G" secondAttribute="leading" id="YLK-KH-lX1"/>
                             <constraint firstItem="PQI-Oy-zrt" firstAttribute="top" secondItem="led-kT-Kwd" secondAttribute="top" id="dkS-4v-SHi"/>
-                            <constraint firstAttribute="bottom" secondItem="ZeR-d8-BiL" secondAttribute="bottom" id="eCk-74-JHA"/>
+                            <constraint firstItem="aU9-FC-lM3" firstAttribute="centerY" secondItem="ev2-2Y-G1G" secondAttribute="centerY" id="erF-Si-ZZZ"/>
                             <constraint firstAttribute="trailing" secondItem="ZeR-d8-BiL" secondAttribute="trailing" id="njT-7P-BiA"/>
+                            <constraint firstItem="aU9-FC-lM3" firstAttribute="leading" secondItem="led-kT-Kwd" secondAttribute="leading" constant="140" id="zgD-xx-YbX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="led-kT-Kwd"/>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="s9U-Ii-ssc" id="faX-LW-cs1"/>
                         <outlet property="mapVC" destination="ZeR-d8-BiL" id="G7f-gR-mSi"/>
                     </connections>
                 </viewController>
@@ -315,6 +336,7 @@
     </scenes>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
+        <image name="default_marker" width="26" height="41"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="sun.max" catalog="system" width="128" height="124"/>
     </resources>
