@@ -21,9 +21,9 @@ class MapViewController: UIViewController {
     var previousLocation: CLLocation?
     
     
-    var lat: Double = 0.0
-    var long: Double = 0.0
-    var streetName = ""
+//    var lat: Double = 0.0
+//    var long: Double = 0.0
+//    var streetName = ""
     
     var newLocationArray: [WeatherLocation] = []
     
@@ -177,44 +177,46 @@ extension MapViewController: MKMapViewDelegate {
                 return
             }
             
-            self.lat = placemark.location?.coordinate.latitude ?? 0
-            self.long = placemark.location?.coordinate.longitude ?? 0
             
-            let streetNumber = placemark.subThoroughfare ?? ""
-            self.streetName = placemark.thoroughfare ?? "Unkown Place"
-            
-            
-            
-            //====save the location on place marker clicked
             
             var tempID: WeatherLocation //the class
-            
-            self.newLocationArray = [] // Temporarily clear Array
-           
-            
+          //  self.newLocationArray = [] // Temporarily clear Array
             tempID = WeatherLocation.init(name: "", latitude: 0.0, longitude: 0.0)
-           
             
+            
+            
+            let lat = placemark.location?.coordinate.latitude ?? 0
+            let long = placemark.location?.coordinate.longitude ?? 0
+            
+            let streetNumber = placemark.subThoroughfare ?? ""
+            let streetName = placemark.thoroughfare ?? "Unkown Place"
+            
+            
+            
+            //====save the location on that place marker clicked
+           
             //======  Save Results to singleton  when a user click on the image pin and retive them  the Location list vc ========
             
             // print("STREET NAME: \(streetName)")
             DispatchQueue.main.async {
-                self.addressLabel.text = "\(streetNumber) \(self.streetName)"
+                self.addressLabel.text = "\(streetNumber) \(streetName)"
                 
             
-//                print("THIS IS ARRAY OBJECT BEING SAVE: \(tempID)")
+//            print("THIS IS ARRAY OBJECT BEING SAVE: \(tempID)")
+                
+                tempID.name = streetName
+                tempID.longitude = long
+                tempID.latitude = lat
+                
+                self.newLocationArray.append(tempID)
+                
                 
              
                 
             }
             
             
-            tempID.latitude = self.lat
-            tempID.longitude = self.long
-            tempID.name = self.streetName
-            
-            
-            print("THIS IS ARRAY OBJECT BEING SAVE: \(tempID)")
+           
             
           
                           
