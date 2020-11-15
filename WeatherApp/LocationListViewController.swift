@@ -36,11 +36,6 @@ class LocationListViewController: UIViewController {
         self.tabelView.delegate = self
         self.tabelView.dataSource  = self
         
-        
-        
-        
-        
-        
         var weatherLocation = WeatherLocation(name: "A", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
         
@@ -54,6 +49,9 @@ class LocationListViewController: UIViewController {
         
     }
     
+    
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     //======Bar Button Actions
     
     @IBAction func editBarBtnPressed(_ sender: UIBarButtonItem) {
@@ -75,11 +73,9 @@ class LocationListViewController: UIViewController {
         }
     }
     
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
-        
-        
-        
-        //MapViewID
         
         let nextStoryBoard:
             UIViewController = UIStoryboard(
@@ -107,7 +103,7 @@ class LocationListViewController: UIViewController {
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func customSearch() {
         
-       
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = true
@@ -140,12 +136,6 @@ class LocationListViewController: UIViewController {
     
     
     
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -153,7 +143,7 @@ class LocationListViewController: UIViewController {
 
 
 
-
+//🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
 //=====Tabel view Extension =====
 
 extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
@@ -190,7 +180,6 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             
             
-            
             let weatherLocationObject = weatherLocationsArray[indexPath.row]
             
             cell.textLabel?.text = weatherLocationObject.name
@@ -201,19 +190,19 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         
         
-        
         return cell
     }
     
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0;//Choose your custom row height
-    }
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 100.0
+    //    }
+    //
+    //
     
     
-    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         
         
         if(shouldShowSearchResults) {
@@ -240,6 +229,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     
     
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     //Deleting/removing a boook mark a cell
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -252,9 +243,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             } else {
                 weatherLocationsArray.remove(at: indexPath.row)
                 
-                
             }
-            
             
             
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -265,6 +254,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     
     
+    
+    //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     //FOR moving a cell
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
@@ -285,11 +276,6 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         
     }
-    
-    
-    
-    
-    
     
     
     
