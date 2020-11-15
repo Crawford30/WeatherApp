@@ -48,8 +48,9 @@ class LocationListViewController: UIViewController {
         //getSavedLocation()
         
         
-        loadPlacesData()
+       // loadPlacesData()
         
+        loadPlacesData()
         
     }
     
@@ -73,7 +74,9 @@ class LocationListViewController: UIViewController {
             
             let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
             
-            weatherLocationsArray = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
+            let newLocationObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
+            
+            weatherLocationsArray.append(contentsOf: newLocationObject)
             
             DispatchQueue.main.async {
                 
@@ -81,10 +84,12 @@ class LocationListViewController: UIViewController {
             }
             
             
+            UserDefaults.standard.removeObject(forKey: "weather")
+            
             
         } catch {
             
-            print("Problem Decoding Weather d=Data")
+            print("Problem Decoding Weather data")
             
         }
         
@@ -96,22 +101,18 @@ class LocationListViewController: UIViewController {
     
     
 //    func loadPlaces(){
-//        let placesData = UserDefaults.standard.object(forKey: "weather") as? NSData
+//        let decoded = UserDefaults.standard.object(forKey: "weather") as! Data
+//        let newLocationObject = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! WeatherLocation
 //
-//        if let placesData = placesData {
-//            let placesArray = NSKeyedUnarchiver.unarchiveObject(with: placesData as Data) as? [WeatherLocation]
+//        weatherLocationsArray.append(newLocationObject)
 //
-//            if let placesArray = placesArray {
+//        DispatchQueue.main.async {
+//            self.tabelView.reloadData()
 //
-//
-//                weatherLocationsArray.append(contentsOf: placesArray)
-//
-//                tabelView.reloadData()
-//            }
-//
+//            UserDefaults.standard.removeObject(forKey: "weather")
 //        }
 //    }
-//
+
     
     
     
@@ -400,7 +401,7 @@ extension LocationListViewController: UISearchResultsUpdating {
         currentFilteredArray = [] //clear the array
         
         currentFilteredArray = weatherLocationsArray.filter({ (item) -> Bool in
-            let locationName: NSString = item.name  as NSString
+            let locationName: NSString = item.name as NSString
             
             return (locationName.range(of: searchString!, options: NSString.CompareOptions.caseInsensitive).location) != NSNotFound
         })

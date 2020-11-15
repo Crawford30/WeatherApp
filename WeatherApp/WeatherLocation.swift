@@ -29,28 +29,48 @@ class WeatherLocation: NSObject, NSCoding, Codable{
     
     required init(coder aDecoder: NSCoder) {
         
-        name      = aDecoder.decodeObject(forKey:"name")   as! String
-        latitude  = aDecoder.decodeDouble(forKey: "latitued")
-        longitude = aDecoder.decodeDouble(forKey: "longitude")
+            name      = aDecoder.decodeObject(forKey:"name")   as! String
+            latitude  = aDecoder.decodeDouble(forKey: "latitued")
+            longitude = aDecoder.decodeDouble(forKey: "longitude")
         
         
     }
-    
+   
     
     
     
     //======write to disk======
     func encode(with coder : NSCoder) {
         
+        
+//        if let name = name {
+//                   coder.encode(name,forKey:"name")
+//               }
+//               if let latitude = latitude {
+//                   coder.encode(latitude,forKey:"latitude")
+//               }
+//
+//        if let latitude = latitude {
+//                          coder.encode(latitude,forKey:"latitude")
+//                      }
+//
+//        if let latitude = latitude {
+//            coder.encode(latitude,forKey:"latitude")
+//        }
+               
+        
+       
+               
+        
         coder.encode(name,  forKey: "name")
         coder.encode(latitude, forKey: "latitude")
         coder.encode(longitude, forKey: "longitude")
-        
+       
         
     }
+   
     
-    
-    
+   
     
     
     
@@ -103,7 +123,7 @@ class WeatherLocation: NSObject, NSCoding, Codable{
         
     }
     
-    
+ 
 }
 
 
