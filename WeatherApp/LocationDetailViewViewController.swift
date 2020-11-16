@@ -61,6 +61,9 @@ struct Temp: Codable {
 
 
 class LocationDetailViewViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
@@ -80,6 +83,9 @@ class LocationDetailViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         //check
         if weatherLocation == nil {
@@ -233,6 +239,7 @@ class LocationDetailViewViewController: UIViewController {
                         
                         print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
                         
+                        self.tableView.reloadData()
                         
                         
                         
@@ -306,3 +313,28 @@ class LocationDetailViewViewController: UIViewController {
 
 
 
+
+
+
+
+
+extension LocationDetailViewViewController:UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return dailyWeatherData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+    
+}
