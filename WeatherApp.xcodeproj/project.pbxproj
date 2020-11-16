@@ -10,7 +10,6 @@
 		EE78973C2561B403006FD0A2 /* WeatherSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */; };
 		EE87B4D2256121FB00B2867F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE87B4D1256121FB00B2867F /* MapViewController.swift */; };
 		EEBDD319255EE03000072AC6 /* LocationDetailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */; };
-		EED3A58825607AA900E66EBD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED3A58725607AA900E66EBD /* MapView.swift */; };
 		EED43758255EC69500C42987 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED43757255EC69500C42987 /* AppDelegate.swift */; };
 		EED4375A255EC69500C42987 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED43759255EC69500C42987 /* SceneDelegate.swift */; };
 		EED4375C255EC69500C42987 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4375B255EC69500C42987 /* LocationListViewController.swift */; };
@@ -43,7 +42,6 @@
 		EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSingleton.swift; sourceTree = "<group>"; };
 		EE87B4D1256121FB00B2867F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewViewController.swift; sourceTree = "<group>"; };
-		EED3A58725607AA900E66EBD /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		EED43754255EC69500C42987 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED43757255EC69500C42987 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EED43759255EC69500C42987 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				EED43759255EC69500C42987 /* SceneDelegate.swift */,
 				EED4375B255EC69500C42987 /* LocationListViewController.swift */,
 				EE87B4D1256121FB00B2867F /* MapViewController.swift */,
-				EED3A58725607AA900E66EBD /* MapView.swift */,
 				EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */,
 				EED4375D255EC69500C42987 /* Main.storyboard */,
 				EED43760255EC6A700C42987 /* Assets.xcassets */,
@@ -283,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBDD319255EE03000072AC6 /* LocationDetailViewViewController.swift in Sources */,
-				EED3A58825607AA900E66EBD /* MapView.swift in Sources */,
 				EED4375C255EC69500C42987 /* LocationListViewController.swift in Sources */,
 				EED43788255EC6DA00C42987 /* WeatherLocation.swift in Sources */,
 				EE78973C2561B403006FD0A2 /* WeatherSingleton.swift in Sources */,

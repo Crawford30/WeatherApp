@@ -188,68 +188,6 @@
             </objects>
             <point key="canvasLocation" x="1128.75" y="103.52112676056338"/>
         </scene>
-        <!--Map View-->
-        <scene sceneID="fyu-NV-BNv">
-            <objects>
-                <viewController storyboardIdentifier="MapViewID" id="eiF-fH-72H" customClass="MapView" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IPY-5B-8fx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggX-WX-iv3">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="3Hy-PE-4rl"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.24313725489999999" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <textAttributes key="largeTitleTextAttributes">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="Map View" id="T7a-wd-rHt">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="arrow.left" catalog="system" id="bBk-HX-NR5">
-                                            <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                            <connections>
-                                                <action selector="backPressed:" destination="eiF-fH-72H" id="cHn-At-kkw"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="xgI-SH-fWh">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="searchBarAction:" destination="eiF-fH-72H" id="dYT-JL-58H"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ceM-fp-yHU">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                            </mapView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="ggX-WX-iv3" firstAttribute="leading" secondItem="zh2-KW-cNA" secondAttribute="leading" id="4pQ-yM-mhB"/>
-                            <constraint firstItem="ceM-fp-yHU" firstAttribute="top" secondItem="ggX-WX-iv3" secondAttribute="bottom" id="K6w-zf-i82"/>
-                            <constraint firstItem="ceM-fp-yHU" firstAttribute="leading" secondItem="zh2-KW-cNA" secondAttribute="leading" id="TNg-vI-Vz3"/>
-                            <constraint firstItem="ggX-WX-iv3" firstAttribute="top" secondItem="zh2-KW-cNA" secondAttribute="top" id="ngZ-cB-NNs"/>
-                            <constraint firstItem="ceM-fp-yHU" firstAttribute="trailing" secondItem="zh2-KW-cNA" secondAttribute="trailing" id="pqy-Aj-CGg"/>
-                            <constraint firstItem="ggX-WX-iv3" firstAttribute="trailing" secondItem="zh2-KW-cNA" secondAttribute="trailing" id="tkM-7a-jHm"/>
-                            <constraint firstItem="ceM-fp-yHU" firstAttribute="bottom" secondItem="zh2-KW-cNA" secondAttribute="bottom" id="ws8-Pz-5cQ"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="zh2-KW-cNA"/>
-                    </view>
-                    <connections>
-                        <outlet property="myMapView" destination="ceM-fp-yHU" id="FKj-B8-Edm"/>
-                        <outlet property="searchBar" destination="xgI-SH-fWh" id="Hxk-Dq-53F"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xnl-Zx-Hi3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1901.25" y="103.52112676056338"/>
-        </scene>
         <!--Map View Controller-->
         <scene sceneID="OFG-dF-8BP">
             <objects>
@@ -324,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbF-1N-5cF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2566.875" y="103.52112676056338"/>
+            <point key="canvasLocation" x="2115" y="104"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NTO-gc-ppZ">
