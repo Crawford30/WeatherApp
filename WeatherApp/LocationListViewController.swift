@@ -258,26 +258,26 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = tabelView.dequeueReusableCell(withIdentifier: "TabelCell", for: indexPath)
         
+        
+        var weatherLocationObject: WeatherLocation
+        
         if (shouldShowSearchResults) {
             
-            let weatherLocationObject = currentFilteredArray[indexPath.row]
+            weatherLocationObject = currentFilteredArray[indexPath.row]
             
-            cell.textLabel?.text = weatherLocationObject.name
-            
-            cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
-            
-            
-            
+          
         } else {
             
             
-            let weatherLocationObject = weatherLocationsArray[indexPath.row]
+           weatherLocationObject = weatherLocationsArray[indexPath.row]
             
-            cell.textLabel?.text = weatherLocationObject.name
-            
-            cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
+           
             
         }
+        
+        cell.textLabel?.text = weatherLocationObject.name
+                   
+        cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
         
         
         

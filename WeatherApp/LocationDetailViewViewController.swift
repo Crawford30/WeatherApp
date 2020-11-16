@@ -92,7 +92,7 @@ class LocationDetailViewViewController: UIViewController {
         locationNameValue = shared.getLocationName()
         print("THIS IS LOCATION NAME: \(locationNameValue)")
         
-        
+       placeLabel.text = locationNameValue
         
         getLocationDetailData()
         
@@ -152,6 +152,7 @@ class LocationDetailViewViewController: UIViewController {
                 print("Result timezone: \(result.timezone)")
                 
                 DispatchQueue.main.async {
+                    
                    self.dateLabel.text = result.timezone
                     self.tempLabel.text = "\(temperature)°"
                     self.summaryLabel.text = result.current.weather[0].description

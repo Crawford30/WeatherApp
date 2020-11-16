@@ -24,6 +24,7 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
     
     var cityName: String = ""
     var countryName: String = ""
+    var locality: String = ""
     
     
     
@@ -99,7 +100,7 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                         let name  =  placemark.name
                         let subThourough =   placemark.subThoroughfare
                         let thoroughfare =  placemark.thoroughfare
-                        let locality = placemark.locality
+                        self.locality = placemark.locality ?? ""
                         //                        placemark.subAdministrativeArea
                         
                         
@@ -107,7 +108,7 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                         print("THIS IS THE NAME: \(name)")
                         
                         print("THIS IS THE subThourough: \(subThourough)")
-                        print("THIS IS THE LOCALITY: \(locality)")
+                        print("THIS IS THE LOCALITY: \(self.locality)")
                         
                         
                         DispatchQueue.main.async {
@@ -119,9 +120,12 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                     
                     
                     //PUT THE DATA IN AN OBJECT
-                    self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
                     
-                    self.saveNewLocationObject()
+                    
+                    
+                    self.weatherObject = WeatherLocation.init(name: self.locality, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+                    
+                      self.saveNewLocationObject()
                     
                 }
                 
