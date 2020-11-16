@@ -41,28 +41,7 @@ class WeatherLocation: NSObject, NSCoding, Codable{
     
     //======write to disk======
     func encode(with coder : NSCoder) {
-        
-        
-//        if let name = name {
-//                   coder.encode(name,forKey:"name")
-//               }
-//               if let latitude = latitude {
-//                   coder.encode(latitude,forKey:"latitude")
-//               }
-//
-//        if let latitude = latitude {
-//                          coder.encode(latitude,forKey:"latitude")
-//                      }
-//
-//        if let latitude = latitude {
-//            coder.encode(latitude,forKey:"latitude")
-//        }
-               
-        
-       
-               
-        
-        coder.encode(name,  forKey: "name")
+      coder.encode(name,  forKey: "name")
         coder.encode(latitude, forKey: "latitude")
         coder.encode(longitude, forKey: "longitude")
        

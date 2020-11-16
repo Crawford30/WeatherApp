@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE5D98572563015800A1380B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D98562563015800A1380B /* Utilities.swift */; };
 		EE78973C2561B403006FD0A2 /* WeatherSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */; };
 		EE87B4D2256121FB00B2867F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE87B4D1256121FB00B2867F /* MapViewController.swift */; };
 		EE88FC8E2562BA5800319775 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE88FC8D2562BA5800319775 /* APIKey.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE5D98562563015800A1380B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSingleton.swift; sourceTree = "<group>"; };
 		EE87B4D1256121FB00B2867F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EE88FC8D2562BA5800319775 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE5D98552563011900A1380B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EE5D98562563015800A1380B /* Utilities.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EE78973A2561B39D006FD0A2 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 				EED43765255EC6A700C42987 /* Info.plist */,
 				EE88FC8D2562BA5800319775 /* APIKey.swift */,
 				EED43787255EC6DA00C42987 /* WeatherLocation.swift */,
+				EE5D98552563011900A1380B /* Helpers */,
 				EE78973A2561B39D006FD0A2 /* Singletons */,
 			);
 			path = WeatherApp;
@@ -293,6 +304,7 @@
 				EE78973C2561B403006FD0A2 /* WeatherSingleton.swift in Sources */,
 				EED43758255EC69500C42987 /* AppDelegate.swift in Sources */,
 				EED4375A255EC69500C42987 /* SceneDelegate.swift in Sources */,
+				EE5D98572563015800A1380B /* Utilities.swift in Sources */,
 				EE87B4D2256121FB00B2867F /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -45,11 +45,10 @@ class LocationDetailViewViewController: UIViewController {
     var longitudeValue: Double =  0.0
     var locationNameValue: String = ""
     var timeZone: String = ""
-    
+    var imageName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         //check
         if weatherLocation == nil {
@@ -74,8 +73,8 @@ class LocationDetailViewViewController: UIViewController {
     func updateUserInterface(){
         dateLabel.text = ""
         placeLabel.text = weatherLocation.name
-        //https://youtu.be/Ga0zEDXRYhg?list=PL9VJ9OpT-IPQx1l2RjVx_n4RqzWyvdlME&t=747
-//        tempLabel.text = "--°"
+        
+        //        tempLabel.text = "--°"
         summaryLabel.text = ""
         
     }
@@ -92,7 +91,7 @@ class LocationDetailViewViewController: UIViewController {
         locationNameValue = shared.getLocationName()
         print("THIS IS LOCATION NAME: \(locationNameValue)")
         
-       placeLabel.text = locationNameValue
+        placeLabel.text = locationNameValue
         
         getLocationDetailData()
         
@@ -105,7 +104,6 @@ class LocationDetailViewViewController: UIViewController {
     
     
     //==============FUNC load Detail of weather =======
-    ///Getting the latitude and langitude value from the table view on didselect tap======completed: @escaping () -> () t for execution to return result before it continues
     
     func getLocationDetailData() {
         
@@ -120,9 +118,8 @@ class LocationDetailViewViewController: UIViewController {
         guard let url = URL(string: urlString) else {
             print("Could not create the url from:  \(urlString) String")
             
-         
             
-           return
+            return
             
         }
         
@@ -137,11 +134,11 @@ class LocationDetailViewViewController: UIViewController {
             }
             
             
-            //dealing with data.
+            //=====dealing with data.============
             
             do {
                 
-//                let json = try JSONSerialization.jsonObject(with: data!, options:[])
+                //                let json = try JSONSerialization.jsonObject(with: data!, options:[])
                 
                 let result = try JSONDecoder().decode(Result.self, from: data!)
                 
@@ -153,12 +150,14 @@ class LocationDetailViewViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     
-                   self.dateLabel.text = result.timezone
+                    self.imageName = self.fileNameForIcon(icon: result.current.weather[0].icon)
+                    
+                    self.dateLabel.text = result.timezone
                     self.tempLabel.text = "\(temperature)°"
                     self.summaryLabel.text = result.current.weather[0].description
-//                    self.imageView   = result.current.weather[0].icon
+                    self.imageView.image   = UIImage(named:self.imageName )
                 }
-               
+                
                 
                 
                 
@@ -168,7 +167,7 @@ class LocationDetailViewViewController: UIViewController {
                 
             }
             
-             
+            
             
         }
         
@@ -179,7 +178,46 @@ class LocationDetailViewViewController: UIViewController {
     }
     
     
- 
+    //======= GETTING ICON FROM NAME====
+   private func fileNameForIcon(icon: String) -> String {
+        
+        var newFileName = ""
+        switch icon {
+            
+        case "0ld":
+            newFileName = "clear-day"
+            
+        case "01n":
+            newFileName = "clear-night"
+            
+        case "02d":
+            newFileName = "partly-cloudy-day"
+            
+        case "02n":
+            newFileName = "partly-cloudy-night"
+            
+        case "03d", "03n", "04d", "04n":
+            newFileName = "cloudy"
+            
+        case "09d", "09n", "10d", "10n":
+            newFileName = "rain"
+            
+        case "11d", "11n":
+            newFileName = "thunderstorm"
+            
+        case "13d", "13n":
+            newFileName = "snow"
+            
+        case "50d", "50n":
+            newFileName = "fog"
+        default:
+            newFileName = ""
+        }
+        
+        return newFileName
+    }
+    
+    
     
     
 }

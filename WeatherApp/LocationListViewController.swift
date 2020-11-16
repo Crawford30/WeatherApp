@@ -36,18 +36,43 @@ class LocationListViewController: UIViewController {
         self.tabelView.delegate = self
         self.tabelView.dataSource  = self
         
-        var weatherLocation = WeatherLocation(name: "A", latitude: 0, longitude: 0)
+        var weatherLocation = WeatherLocation(name: "Nairobi", latitude:   -1.28333, longitude: 36.81667)
         
         weatherLocationsArray.append(weatherLocation)
-
-        weatherLocation = WeatherLocation(name: "B", latitude: 0, longitude: 0)
+        
+        weatherLocation = WeatherLocation(name: "Kampala", latitude:   0.340902, longitude: 32.582777)
         weatherLocationsArray.append(weatherLocation)
-
-        weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
+        
+        
+        weatherLocation = WeatherLocation(name: "Lilongwe", latitude: 13.962612, longitude: 33.774119)
         weatherLocationsArray.append(weatherLocation)
+        
+        
+        
+        weatherLocation = WeatherLocation(name: "Kigali", latitude: -1.944073, longitude: 30.061885)
+        weatherLocationsArray.append(weatherLocation)
+        
+        
+        weatherLocation = WeatherLocation(name: "Ngong", latitude:  -1.356212, longitude: -36.668754)
+        weatherLocationsArray.append(weatherLocation)
+        
+        weatherLocation = WeatherLocation(name: "Boston", latitude:   42.360082, longitude: -71.058880)
+        weatherLocationsArray.append(weatherLocation)
+        
+        weatherLocation = WeatherLocation(name: "Nakuru", latitude:    -0.303099, longitude: 36.080026)
+        weatherLocationsArray.append(weatherLocation)
+        
+        weatherLocation = WeatherLocation(name: "Mingali", latitude: -3.988215, longitude: 15.389237)
+        weatherLocationsArray.append(weatherLocation)
+        
+        weatherLocation = WeatherLocation(name: "Australia", latitude: -25.234653, longitude: 133.906972)
+        weatherLocationsArray.append(weatherLocation)
+        
+        
+        
+        
         
         loadPlacesData()
-        
         
         
     }
@@ -61,7 +86,7 @@ class LocationListViewController: UIViewController {
     
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func loadPlacesData() {
-         
+        
         
         //--------------------------------------------------------------------------
         
@@ -135,7 +160,7 @@ class LocationListViewController: UIViewController {
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
         
-      
+        
         
         let nextStoryBoard:
             UIViewController = UIStoryboard(
@@ -216,12 +241,7 @@ class LocationListViewController: UIViewController {
         
         
         
-        
-        
     }
-    
-    
-    
     
     
     
@@ -254,6 +274,9 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tabelView.dequeueReusableCell(withIdentifier: "TabelCell", for: indexPath)
@@ -265,18 +288,14 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
             
             weatherLocationObject = currentFilteredArray[indexPath.row]
             
-          
         } else {
             
-            
-           weatherLocationObject = weatherLocationsArray[indexPath.row]
-            
-           
+            weatherLocationObject = weatherLocationsArray[indexPath.row]
             
         }
         
         cell.textLabel?.text = weatherLocationObject.name
-                   
+        
         cell.detailTextLabel?.text = "Lat: \(weatherLocationObject.latitude), Lon: \(weatherLocationObject.longitude)"
         
         
@@ -285,7 +304,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
-  
+    
     
     
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
@@ -299,30 +318,19 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         
         if(shouldShowSearchResults) {
             
-            print("SELECTED INDEX \(indexPath.row)")
-            print("Selected Cell Name \(currentFilteredArray[indexPath.row].name)")
+            //            print("SELECTED INDEX \(indexPath.row)")
+            //            print("Selected Cell Name \(currentFilteredArray[indexPath.row].name)")
             
             currentLatValue = currentFilteredArray[indexPath.row].latitude
             currentLongValue = currentFilteredArray[indexPath.row].longitude
             locationName = currentFilteredArray[indexPath.row].name
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         } else {
             
             
-            print("SELECTED INDEX \(indexPath.row)")
-            print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
-            
+            //            print("SELECTED INDEX \(indexPath.row)")
+            //            print("Selected Cell Name \(weatherLocationsArray[indexPath.row].name)")
             
             currentLatValue = weatherLocationsArray[indexPath.row].latitude
             currentLongValue = weatherLocationsArray[indexPath.row].longitude
@@ -336,7 +344,6 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         sharedInstanse.setLatValue(theValue: currentLatValue)
         sharedInstanse.setLongValue(theValue: currentLongValue)
         sharedInstanse.setLocationName(theName: locationName)
-        
         
         
         let vc = self.storyboard?.instantiateViewController(identifier: "DetailVC") as! LocationDetailViewViewController
