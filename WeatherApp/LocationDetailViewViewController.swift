@@ -10,7 +10,7 @@ import UIKit
 
 private let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "EEEE, MMM d, h:mm aaa" //date format
+    dateFormatter.dateFormat = "EEEE, MMM d" //date format
     return dateFormatter
     
 }()
@@ -87,6 +87,8 @@ class LocationDetailViewViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        clearUserInterface()
+        
         //check
         if weatherLocation == nil {
             weatherLocation = WeatherLocation(name: "Current Location", latitude: 0.0, longitude: 0.0)
@@ -132,6 +134,19 @@ class LocationDetailViewViewController: UIViewController {
         
         getLocationDetailData()
         
+        
+    }
+    
+    
+    
+    //To clear place holders entered during dsign
+    func clearUserInterface() {
+
+        dateLabel.text = ""
+        placeLabel.text = ""
+        tempLabel.text = ""
+        summaryLabel.text = ""
+        imageView.image = UIImage()
         
     }
     
