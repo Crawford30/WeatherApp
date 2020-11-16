@@ -15,10 +15,18 @@ private let dateFormatter: DateFormatter = {
     
 }()
 
+private let dateFormatterWeekDay: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE" //date format
+    return dateFormatter
+    
+}()
+
 
 struct Result:Codable {
     var timezone: String
     var current: Current
+    var daily: [Daily]
     
     
 }
@@ -33,6 +41,21 @@ struct Weather: Codable {
     var icon: String
     
     
+}
+
+
+struct Daily:Codable {
+    var dt: TimeInterval
+    var temp: Temp
+    var weather: [Weather]
+    var pressure: Double
+    var humidity: Double
+    var dew_point: Double
+    var wind_speed: Double
+}
+struct Temp: Codable {
+    var max: Double
+    var min: Double
 }
 
 
@@ -53,6 +76,7 @@ class LocationDetailViewViewController: UIViewController {
     var locationNameValue: String = ""
     var timeZone: String = ""
     var imageName: String = ""
+    var dailyWeatherData: [DailyWeatherStruct] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,6 +194,49 @@ class LocationDetailViewViewController: UIViewController {
                     self.tempLabel.text = "\(temperature)°"
                     self.summaryLabel.text = result.current.weather[0].description
                     self.imageView.image   = UIImage(named:self.imageName )
+                    
+                    
+                    //print("***DAILY WEATHER ARRAY*** \(result.daily)")
+                    
+                    
+                    
+                    for index in 0..<result.daily.count{
+                        
+                        let weeKDayDate = Date(timeIntervalSince1970: result.daily[index].dt)
+                        
+                        dateFormatterWeekDay.timeZone = TimeZone(identifier: result.timezone)
+                        
+                        let dailyWeekDay = dateFormatterWeekDay.string(from: weeKDayDate)
+                        
+                        
+                        let dailyIcon = self.fileNameForIcon(icon: result.daily[index].weather[0].icon)
+                        
+                        let dailySummary = result.daily[index].weather[0].description
+                        
+                        let dailyHigh = Int(result.daily[index].temp.max.rounded())
+                        
+                        let dailyLow = Int(result.daily[index].temp.min.rounded())
+                        
+                        let dailyHumidity = result.daily[index].humidity
+                        
+                        let dailyPressure = result.daily[index].pressure
+                        
+                        let dailyWindSpeed = result.daily[index].wind_speed
+                        
+                        let dailyRainChance = result.daily[index].dew_point
+                        
+                        let dailyWeather = DailyWeatherStruct(dailyIcon: dailyIcon, dailyWeekday: dailyWeekDay, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow, dailyHumidity: dailyHumidity, dailyPressure: dailyPressure, dailyDewpoint: dailyWindSpeed, dailyWindSpeed: dailyRainChance)
+                        
+                        
+                        
+                        self.dailyWeatherData.append(dailyWeather)
+                        
+                        print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
+                        
+                        
+                        
+                        
+                    }
                 }
                 
                 
