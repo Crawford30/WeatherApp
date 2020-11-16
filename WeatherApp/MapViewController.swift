@@ -84,6 +84,9 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
             let locationCoordinate = mapVC.convert(touchLocation,toCoordinateFrom: mapVC)
             print("Tapped at lat: \(locationCoordinate.latitude) long: \(locationCoordinate.longitude)")
             
+            let latitudeCordinate  = locationCoordinate.latitude
+            let longitudeCordinate =  locationCoordinate.longitude
+            
             
             // Add below code to get address for touch coordinates.
             let geoCoder = CLGeocoder()
@@ -91,9 +94,13 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
             
             
             
-            let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+            let location = CLLocation(latitude: latitudeCordinate, longitude: longitudeCordinate)
             
             geoCoder.reverseGeocodeLocation(location) {  placemarks, error -> Void in
+                
+                print("THIS IS LOCATION LAT: \(locationCoordinate)")
+                
+                  print("THIS IS LONGITUDE LAT: \(longitudeCordinate)")
                 
                 // Place details
                 guard let placeMark = placemarks?.first else { return }
@@ -118,7 +125,7 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                     self.countryName = country
                 }
                 
-                self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+                self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: latitudeCordinate, longitude: longitudeCordinate)
                 
                 
                 self.saveNewLocationObject()
