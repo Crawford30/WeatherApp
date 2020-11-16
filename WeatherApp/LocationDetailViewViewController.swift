@@ -8,6 +8,13 @@
 
 import UIKit
 
+private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE, MMM d, h:mm aaa" //date format
+    return dateFormatter
+    
+}()
+
 
 struct Result:Codable {
     var timezone: String
@@ -146,13 +153,20 @@ class LocationDetailViewViewController: UIViewController {
                 
                 
                 let temperature = String(Int(result.current.temp.rounded()))
+                
+                //time zone
                 print("Result timezone: \(result.timezone)")
                 
                 DispatchQueue.main.async {
                     
+                    dateFormatter.timeZone = TimeZone(identifier: result.timezone)
+                    let userbleDate = Date(timeIntervalSince1970: TimeInterval(result.current.dt))
+                    
+                    
                     self.imageName = self.fileNameForIcon(icon: result.current.weather[0].icon)
                     
-                    self.dateLabel.text = result.timezone
+                    
+                    self.dateLabel.text = dateFormatter.string(from: userbleDate)
                     self.tempLabel.text = "\(temperature)°"
                     self.summaryLabel.text = result.current.weather[0].description
                     self.imageView.image   = UIImage(named:self.imageName )
@@ -179,7 +193,7 @@ class LocationDetailViewViewController: UIViewController {
     
     
     //======= GETTING ICON FROM NAME====
-   private func fileNameForIcon(icon: String) -> String {
+    private func fileNameForIcon(icon: String) -> String {
         
         var newFileName = ""
         switch icon {

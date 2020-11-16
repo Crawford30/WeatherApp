@@ -22,9 +22,11 @@ class Utilities {
     static func convertUnixTimeStampToStringDate(unixTimeInterval:Int ) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTimeInterval))
         let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .full
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
         dateFormatter.locale = NSLocale.current
-        dateFormatter.dateFormat = "MMM dd, yyyy" //date format
+        dateFormatter.dateFormat = "EEEE, MMM dd, yyyy" //date format
         let strDate = dateFormatter.string(from: date)
         return strDate
     }
