@@ -48,6 +48,7 @@ struct Current: Codable {
 struct Weather: Codable {
     var description: String
     var icon: String
+    var id: Int
     
     
 }
@@ -79,6 +80,7 @@ struct Temp: Codable {
 class LocationDetailViewViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var horizontalCollectionView: UICollectionView!
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var placeLabel: UILabel!
@@ -105,6 +107,9 @@ class LocationDetailViewViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        horizontalCollectionView.delegate = self
+        horizontalCollectionView.dataSource = self
         
         clearUserInterface()
         
@@ -134,6 +139,8 @@ class LocationDetailViewViewController: UIViewController {
         
         //        tempLabel.text = "--°"
         summaryLabel.text = ""
+        
+        
         
     }
     
@@ -183,7 +190,7 @@ class LocationDetailViewViewController: UIViewController {
         let urlString =  "https://api.openweathermap.org/data/2.5/onecall?lat=\(latituteValue)&lon=\(longitudeValue)&exclude=minutely&units=imperial&appid=\(apiKey)"
         
         
-        print("THIS IS URL STRING IN DEATIL VC: \(urlString)")
+       // print("THIS IS URL STRING IN DEATIL VC: \(urlString)")
         
         //creat url from string
         guard let url = URL(string: urlString) else {
@@ -208,8 +215,6 @@ class LocationDetailViewViewController: UIViewController {
             //=====dealing with data.============
             
             do {
-                
-                //                let json = try JSONSerialization.jsonObject(with: data!, options:[])
                 
                 let result = try JSONDecoder().decode(Result.self, from: data!)
                 
@@ -269,45 +274,7 @@ class LocationDetailViewViewController: UIViewController {
                         
                         self.dailyWeatherData.append(dailyWeather)
                         
-                        print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
-                        
-                        self.tableView.reloadData()
-                        
-                        
-                    }
-                    
-                    for index in 0..<result.daily.count{
-                        
-                        let weeKDayDate = Date(timeIntervalSince1970: result.daily[index].dt)
-                        
-                        dateFormatterWeekDay.timeZone = TimeZone(identifier: result.timezone)
-                        
-                        let dailyWeekDay = dateFormatterWeekDay.string(from: weeKDayDate)
-                        
-                        
-                        let dailyIcon = self.fileNameForIcon(icon: result.daily[index].weather[0].icon)
-                        
-                        let dailySummary = result.daily[index].weather[0].description
-                        
-                        let dailyHigh = Int(result.daily[index].temp.max.rounded())
-                        
-                        let dailyLow = Int(result.daily[index].temp.min.rounded())
-                        
-                        let dailyHumidity = result.daily[index].humidity
-                        
-                        let dailyPressure = result.daily[index].pressure
-                        
-                        let dailyWindSpeed = result.daily[index].wind_speed
-                        
-                        let dailyRainChance = result.daily[index].dew_point
-                        
-                        let dailyWeather = DailyWeatherStruct(dailyIcon: dailyIcon, dailyWeekday: dailyWeekDay, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow, dailyHumidity: dailyHumidity, dailyPressure: dailyPressure, dailyDewpoint: dailyWindSpeed, dailyWindSpeed: dailyRainChance)
-                        
-                        
-                        
-                        self.dailyWeatherData.append(dailyWeather)
-                        
-                        print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
+                        //print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
                         
                         self.tableView.reloadData()
                         
@@ -317,9 +284,7 @@ class LocationDetailViewViewController: UIViewController {
                     
                     
                     
-                    
-                    
-                    
+                   
                     
                     //======HOURLY DATA ===============
                     
@@ -335,12 +300,12 @@ class LocationDetailViewViewController: UIViewController {
                             
                             hourFormatter.timeZone = TimeZone(identifier: result.timezone)
                             
-                            let hour = dateFormatterWeekDay.string(from: hourlyDate)
+                            let hour = hourFormatter.string(from: hourlyDate)
                             
                             
-                            let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
+                            //let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
                             
-                            
+                            let hourlyIcon = systemNameFromID(id: result.hourly[index].weather[0].id, icon: result.hourly[index].weather[0].icon)
                             
                             let hourlyTemp = Int(result.hourly[index].temp.rounded())
                             
@@ -349,22 +314,16 @@ class LocationDetailViewViewController: UIViewController {
                             
                             self.hourlyWeatherData.append(hourlyWeather)
                             
-                            print("HOUR: \(hour), Hourly Temp: \(hourlyTemp), Hourly ICON: \(hourlyIcon)")
+                            //print("HOUR: \(hour), Hourly Temp: \(hourlyTemp), Hourly ICON: \(hourlyIcon)")
                             
-                            //self.tableView.reloadData()
+                            self.horizontalCollectionView.reloadData()
                             
                             
                         }
                         
                         
                         
-                        
-                        
                     }
-                    
-                    
-                    
-                    
                     
                     
                     
@@ -429,11 +388,69 @@ class LocationDetailViewViewController: UIViewController {
         return newFileName
     }
     
+    //=====Get system  image name from ID ====
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
 }
 
+//===========================
+
+
+
+//GETTING WEATHER ICON FROM SF SYMBOL
+
+func systemNameFromID(id: Int, icon: String) -> String {
+    switch id {
+    case 200...299:
+        return "cloud.bolt.rain"
+        
+    case 300...399:
+        return "cloud.drizzle"
+        
+    case 500, 501, 520, 521,531:
+        return "cloud.heavyrain"
+        
+    case 511,611...616:
+        return "sleet"
+        
+    case 600...602, 620...622:
+        return "snow"
+        
+    case 701,711, 741:
+        return "cloud.fog"
+        
+    case 721:
+        return  (icon.hasSuffix("d") ? "sun.haze": "cloud.fog")
+        
+    case 732,751761,762:
+        return  (icon.hasSuffix("d") ? "sun.dust": "cloud.fog")
+        
+    case 771:
+        return "wind"
+        
+    case 800:
+        return  (icon.hasSuffix("d") ? "sun.max": "moon")
+        
+    case 801,802:
+        return  (icon.hasSuffix("d") ? "cloud.sun": "cloud.moon")
+        
+    case 803,804:
+        return  "cloud"
+        
+    default:
+        return "questionmark.diamond"
+    }
+}
 
 
 
@@ -462,5 +479,29 @@ extension LocationDetailViewViewController:UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160
     }
+    
+}
+
+
+
+
+
+extension LocationDetailViewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        
+        return hourlyWeatherData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let HourlyCell = horizontalCollectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath) as! HourlyCollectionViewCell
+        
+        
+        HourlyCell.hourlyWeatherArray = hourlyWeatherData[indexPath.item] 
+        return HourlyCell
+    }
+    
+    
+    
     
 }
