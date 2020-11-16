@@ -42,6 +42,10 @@ class LocationDetailViewViewController: UIViewController {
         getStoredValuesFromCellTapped()
     }
     
+    //https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid={API key}
+    
+    //https://api.openweathermap.org/data/2.5/onecall?lat=28.79779768641177&lon=33.90499578898962&appid=10f09520ecd91670d285f15548b94940
+    
     
     func updateUserInterface(){
         dateLabel.text = ""
@@ -66,6 +70,8 @@ class LocationDetailViewViewController: UIViewController {
         
         
         
+        getLocationDetailData()
+        
         
     }
     
@@ -74,7 +80,61 @@ class LocationDetailViewViewController: UIViewController {
     
     
     
+    //==============FUNC load Detail of weather =======
+    ///Getting the latitude and langitude value from the table view on didselect tap======
     
+    func getLocationDetailData() {
+        
+        let apiKey = APIKey.openWeatherKey
+        
+        let urlString =  "https://api.openweathermap.org/data/2.5/onecall?lat=\(latituteValue)&lon=\(longitudeValue)&exclude=minutely&units=imperial&appid=\(apiKey)"
+        
+        
+        print("THIS IS URL STRING IN DEATIL VC: \(urlString)")
+        
+        //creat url from string
+        guard let url = URL(string: urlString) else {
+            print("Could not create the url from:  \(urlString) String")
+           return
+            
+        }
+        
+        //create session
+        let session = URLSession.shared
+        
+        //Get the data task
+        let task = session.dataTask(with: url) { (data, response, error) in
+            
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            }
+            
+            
+            //dealing with data.
+            
+            do {
+                
+                let json = try JSONSerialization.jsonObject(with: data!, options:[])
+                
+                print("THIS IS MY JSON: \(json)")
+                
+            } catch {
+                
+                print("JSON ERROR: \(error.localizedDescription)")
+                
+            }
+       
+            
+        }
+        
+        task.resume()
+        
+        
+        
+    }
+    
+    
+ 
     
     
 }

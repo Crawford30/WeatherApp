@@ -37,13 +37,14 @@ class LocationListViewController: UIViewController {
         self.tabelView.dataSource  = self
         
         var weatherLocation = WeatherLocation(name: "A", latitude: 0, longitude: 0)
-//        weatherLocationsArray.append(weatherLocation)
-//
-//        weatherLocation = WeatherLocation(name: "B", latitude: 0, longitude: 0)
-//        weatherLocationsArray.append(weatherLocation)
-//
-//        weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
-//        weatherLocationsArray.append(weatherLocation)
+        
+        weatherLocationsArray.append(weatherLocation)
+
+        weatherLocation = WeatherLocation(name: "B", latitude: 0, longitude: 0)
+        weatherLocationsArray.append(weatherLocation)
+
+        weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
+        weatherLocationsArray.append(weatherLocation)
         
         loadPlacesData()
         

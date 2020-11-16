@@ -69,10 +69,15 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
             let touchLocation = gestureReconizer.location(in: mapVC)
             let locationCoordinate = mapVC.convert(touchLocation,toCoordinateFrom: mapVC)
             
+            
+            
+            
             print("Tapped at lat: \(locationCoordinate.latitude) long: \(locationCoordinate.longitude)")
             
             
             
+            
+            //Location ===============
             let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
             
             
@@ -217,14 +222,7 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     
-    
-    
-    func getCenterLocation(for mapView: MKMapView) -> CLLocation {
-        let latitude = mapView.centerCoordinate.latitude
-        let longitude = mapView.centerCoordinate.longitude
-        
-        return CLLocation(latitude: latitude, longitude: longitude)
-    }
+
 }
 
 
