@@ -18,7 +18,7 @@ import CoreLocation
 
 class MapViewController: UIViewController,UIGestureRecognizerDelegate {
     
-   // var delegate: AddWeatherDelegate?
+    var weatherObject = WeatherLocation.init(name: "", latitude: 0.0, longitude: 0.0)
     
     @IBOutlet weak var mapVC: MKMapView!
     @IBOutlet weak var placeMarkerImageView: UIImageView!
@@ -50,6 +50,8 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
         //checkLocationServices()
         
         self.setMapview()
+        
+        
     }
     
     
@@ -116,27 +118,12 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                     self.countryName = country
                 }
                 
-                let weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+                self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
                 
-                print("Lon value: \(weatherObject.longitude)")
-                   print("Lat value: \(weatherObject.latitude)")
                 
-                print("Name: \(weatherObject.name)")
-                
-              //  self.delegate?.addWeather(weather: weather)
-                
-//                var locationObject: WeatherLocation
-//
-//                locationObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
-//
-//                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: locationObject.self)
-//                UserDefaults.standard.set(encodedData, forKey: "weather")
-//
-//
-//
-//                 print("THIS IS THE Encoded data: \(encodedData)")
-//
-                
+                self.saveNewLocationObject()
+              
+                       
                 DispatchQueue.main.async {
                     self.addressLabel.text = "\(self.countryName),  \(self.cityName)"
                     
@@ -164,9 +151,9 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
         
         do {
             
-            let encodedData = try NSKeyedArchiver.archivedData(withRootObject: newLocationArray, requiringSecureCoding: false)
+            let encodedData = try NSKeyedArchiver.archivedData(withRootObject: weatherObject, requiringSecureCoding: false)
             
-            print("NEW LOCATION ARRAY: \(newLocationArray)")
+            print("NEW LOCATION OBJECT: \(weatherObject)")
             
             UserDefaults.standard.set( encodedData, forKey: "weather" )
             

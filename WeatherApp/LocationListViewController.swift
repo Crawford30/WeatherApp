@@ -38,21 +38,20 @@ class LocationListViewController: UIViewController {
         
         var weatherLocation = WeatherLocation(name: "A", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
-        
+
         weatherLocation = WeatherLocation(name: "B", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
-        
+
         weatherLocation = WeatherLocation(name: "C", latitude: 0, longitude: 0)
         weatherLocationsArray.append(weatherLocation)
         
-        //getSavedLocation()
+        loadPlacesData()
         
         
-        
-        
-        //loadPlacesData()
         
     }
+    
+    
     
     
     
@@ -63,73 +62,41 @@ class LocationListViewController: UIViewController {
     func loadPlacesData() {
         
         
+        //--------------------------------------------------------------------------
         
-        let decoded = UserDefaults.standard.object(forKey: "weather") as! Data
-        let userLocation = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! WeatherLocation
-        
-        weatherLocationsArray.append(userLocation)
-        
-        UserDefaults.standard.removeObject(forKey: "weather")
-        
-        DispatchQueue.main.async {
-            self.tabelView.reloadData()
+        if UserDefaults.standard.object(forKey: "weather" ) == nil {  // Return if no weather saved
+            
+            return
+            
         }
         
-        
-        
-        
-        
-        
-        //        //--------------------------------------------------------------------------
-        //
-        //        if UserDefaults.standard.object(forKey: "weather" ) == nil {  // Return if no weather saved
-        //
-        //            return
-        //
-        //        }
-        //
-        //        do {
-        //
-        //            let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
-        //
-        //            let newLocationObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! [WeatherLocation]
-        //
-        //            weatherLocationsArray.append(contentsOf: newLocationObject)
-        //
-        //            DispatchQueue.main.async {
-        //
-        //                self.tabelView.reloadData()
-        //            }
-        //
-        //
-        //            UserDefaults.standard.removeObject(forKey: "weather")
-        //
-        //
-        //        } catch {
-        //
-        //            print("Problem Decoding Weather data")
-        //
-        //        }
+        do {
+            
+            let decodedData = UserDefaults.standard.object(forKey: "weather" ) as! Data
+            
+            let newLocationObject = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData( decodedData ) as! WeatherLocation
+            
+            weatherLocationsArray.append(newLocationObject)
+            
+            DispatchQueue.main.async {
+                
+                self.tabelView.reloadData()
+            }
+            
+            
+            UserDefaults.standard.removeObject(forKey: "weather")
+            
+            
+        } catch {
+            
+            print("Problem Decoding Weather data")
+            
+        }
         
     }
     
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     
-    
-    
-    
-    //    func loadPlaces(){
-    //        let decoded = UserDefaults.standard.object(forKey: "weather") as! Data
-    //        let newLocationObject = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! WeatherLocation
-    //
-    //        weatherLocationsArray.append(newLocationObject)
-    //
-    //        DispatchQueue.main.async {
-    //            self.tabelView.reloadData()
-    //
-    //            UserDefaults.standard.removeObject(forKey: "weather")
-    //        }
-    //    }
     
     
     
@@ -167,8 +134,7 @@ class LocationListViewController: UIViewController {
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
         
-//        let controller = MapViewController()
-//        controller.delegate = self
+      
         
         let nextStoryBoard:
             UIViewController = UIStoryboard(
@@ -318,11 +284,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return 100.0
-    //    }
-    //
-    //
+  
     
     
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
