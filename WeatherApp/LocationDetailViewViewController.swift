@@ -326,7 +326,9 @@ extension LocationDetailViewViewController:UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DailyTableViewCell
+        
+        cell.dailyWeather = dailyWeatherData[indexPath.row] //get the property observer asscocaited with daily weather
         
         
         return cell

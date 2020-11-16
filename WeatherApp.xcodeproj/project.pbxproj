@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EE5D98572563015800A1380B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D98562563015800A1380B /* Utilities.swift */; };
 		EE5D98592563109B00A1380B /* DailyWeatherStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D98582563109B00A1380B /* DailyWeatherStruct.swift */; };
+		EE5D985B256323AF00A1380B /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D985A256323AF00A1380B /* DailyTableViewCell.swift */; };
 		EE78973C2561B403006FD0A2 /* WeatherSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */; };
 		EE87B4D2256121FB00B2867F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE87B4D1256121FB00B2867F /* MapViewController.swift */; };
 		EE88FC8E2562BA5800319775 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE88FC8D2562BA5800319775 /* APIKey.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		EE5D98562563015800A1380B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		EE5D98582563109B00A1380B /* DailyWeatherStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherStruct.swift; sourceTree = "<group>"; };
+		EE5D985A256323AF00A1380B /* DailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
 		EE78973B2561B403006FD0A2 /* WeatherSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSingleton.swift; sourceTree = "<group>"; };
 		EE87B4D1256121FB00B2867F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EE88FC8D2562BA5800319775 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				EEBDD318255EE03000072AC6 /* LocationDetailViewViewController.swift */,
 				EE88FC8F2562BEF400319775 /* WeatherDetailClass.swift */,
 				EE5D98582563109B00A1380B /* DailyWeatherStruct.swift */,
+				EE5D985A256323AF00A1380B /* DailyTableViewCell.swift */,
 				EED4375D255EC69500C42987 /* Main.storyboard */,
 				EED43760255EC6A700C42987 /* Assets.xcassets */,
 				EED43762255EC6A700C42987 /* LaunchScreen.storyboard */,
@@ -308,6 +311,7 @@
 				EED43758255EC69500C42987 /* AppDelegate.swift in Sources */,
 				EE5D98592563109B00A1380B /* DailyWeatherStruct.swift in Sources */,
 				EED4375A255EC69500C42987 /* SceneDelegate.swift in Sources */,
+				EE5D985B256323AF00A1380B /* DailyTableViewCell.swift in Sources */,
 				EE5D98572563015800A1380B /* Utilities.swift in Sources */,
 				EE87B4D2256121FB00B2867F /* MapViewController.swift in Sources */,
 			);
