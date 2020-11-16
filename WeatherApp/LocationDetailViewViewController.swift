@@ -15,6 +15,14 @@ private let dateFormatter: DateFormatter = {
     
 }()
 
+
+private let hourFormatter: DateFormatter = {
+    let hourFormatter = DateFormatter()
+    hourFormatter.dateFormat = "ha"
+    return hourFormatter
+    
+}()
+
 private let dateFormatterWeekDay: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE" //date format
@@ -27,6 +35,7 @@ struct Result:Codable {
     var timezone: String
     var current: Current
     var daily: [Daily]
+    var hourly: [Hourly]
     
     
 }
@@ -53,6 +62,13 @@ struct Daily:Codable {
     var dew_point: Double
     var wind_speed: Double
 }
+
+
+struct Hourly:Codable {
+    var dt: TimeInterval
+    var temp: Double
+    var weather: [Weather]
+}
 struct Temp: Codable {
     var max: Double
     var min: Double
@@ -73,13 +89,16 @@ class LocationDetailViewViewController: UIViewController {
     var weatherLocation: WeatherLocation!
     var weatherLocationsArray :[WeatherLocation] = []
     
+    
     var shared = WeatherSingleton.shared
     var latituteValue: Double = 0.0
     var longitudeValue: Double =  0.0
     var locationNameValue: String = ""
     var timeZone: String = ""
     var imageName: String = ""
+    
     var dailyWeatherData: [DailyWeatherStruct] = []
+    var hourlyWeatherData : [HourlyWeatherStruct] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +160,7 @@ class LocationDetailViewViewController: UIViewController {
     
     //To clear place holders entered during dsign
     func clearUserInterface() {
-
+        
         dateLabel.text = ""
         placeLabel.text = ""
         tempLabel.text = ""
@@ -219,7 +238,43 @@ class LocationDetailViewViewController: UIViewController {
                     
                     //print("***DAILY WEATHER ARRAY*** \(result.daily)")
                     
-                    
+                    for index in 0..<result.daily.count{
+                        
+                        let weeKDayDate = Date(timeIntervalSince1970: result.daily[index].dt)
+                        
+                        dateFormatterWeekDay.timeZone = TimeZone(identifier: result.timezone)
+                        
+                        let dailyWeekDay = dateFormatterWeekDay.string(from: weeKDayDate)
+                        
+                        
+                        let dailyIcon = self.fileNameForIcon(icon: result.daily[index].weather[0].icon)
+                        
+                        let dailySummary = result.daily[index].weather[0].description
+                        
+                        let dailyHigh = Int(result.daily[index].temp.max.rounded())
+                        
+                        let dailyLow = Int(result.daily[index].temp.min.rounded())
+                        
+                        let dailyHumidity = result.daily[index].humidity
+                        
+                        let dailyPressure = result.daily[index].pressure
+                        
+                        let dailyWindSpeed = result.daily[index].wind_speed
+                        
+                        let dailyRainChance = result.daily[index].dew_point
+                        
+                        let dailyWeather = DailyWeatherStruct(dailyIcon: dailyIcon, dailyWeekday: dailyWeekDay, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow, dailyHumidity: dailyHumidity, dailyPressure: dailyPressure, dailyDewpoint: dailyWindSpeed, dailyWindSpeed: dailyRainChance)
+                        
+                        
+                        
+                        self.dailyWeatherData.append(dailyWeather)
+                        
+                        print("Day: \(dailyWeekDay), Low: \(dailyLow), High: \(dailyHigh), Pressure: \(dailyPressure),  Humidity: \(dailyHumidity)")
+                        
+                        self.tableView.reloadData()
+                        
+                        
+                    }
                     
                     for index in 0..<result.daily.count{
                         
@@ -257,8 +312,62 @@ class LocationDetailViewViewController: UIViewController {
                         self.tableView.reloadData()
                         
                         
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    //======HOURLY DATA ===============
+                    
+                    //=====get not more than 24 hours data=======
+                    
+                    let lastHour = min(24, result.hourly.count)
+                    
+                    if lastHour > 0 {
+                        
+                        for index in 1...lastHour{ //close range
+                            
+                            let hourlyDate = Date(timeIntervalSince1970: result.hourly[index].dt)
+                            
+                            hourFormatter.timeZone = TimeZone(identifier: result.timezone)
+                            
+                            let hour = dateFormatterWeekDay.string(from: hourlyDate)
+                            
+                            
+                            let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
+                            
+                            
+                            
+                            let hourlyTemp = Int(result.hourly[index].temp.rounded())
+                            
+                            let hourlyWeather = HourlyWeatherStruct(hour: hour, hourlyTemp: hourlyTemp, hourlyIcon: hourlyIcon)
+                            
+                            
+                            self.hourlyWeatherData.append(hourlyWeather)
+                            
+                            print("HOUR: \(hour), Hourly Temp: \(hourlyTemp), Hourly ICON: \(hourlyIcon)")
+                            
+                            //self.tableView.reloadData()
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
                         
                     }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 }
                 
                 
