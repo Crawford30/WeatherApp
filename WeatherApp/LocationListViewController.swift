@@ -61,7 +61,7 @@ class LocationListViewController: UIViewController {
     
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     func loadPlacesData() {
-        
+         
         
         //--------------------------------------------------------------------------
         

@@ -8,6 +8,28 @@
 
 import UIKit
 
+
+struct Result:Codable {
+    var timezone: String
+    var current: Current
+    
+    
+}
+struct Current: Codable {
+    var dt: TimeInterval
+    var temp: Double
+    var weather: [Weather]
+}
+
+struct Weather: Codable {
+    var description: String
+    var icon: String
+    
+    
+}
+
+
+
 class LocationDetailViewViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var placeLabel: UILabel!
@@ -22,6 +44,8 @@ class LocationDetailViewViewController: UIViewController {
     var latituteValue: Double = 0.0
     var longitudeValue: Double =  0.0
     var locationNameValue: String = ""
+    var timeZone: String = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +75,7 @@ class LocationDetailViewViewController: UIViewController {
         dateLabel.text = ""
         placeLabel.text = weatherLocation.name
         //https://youtu.be/Ga0zEDXRYhg?list=PL9VJ9OpT-IPQx1l2RjVx_n4RqzWyvdlME&t=747
-        tempLabel.text = "--°"
+//        tempLabel.text = "--°"
         summaryLabel.text = ""
         
     }
@@ -81,7 +105,7 @@ class LocationDetailViewViewController: UIViewController {
     
     
     //==============FUNC load Detail of weather =======
-    ///Getting the latitude and langitude value from the table view on didselect tap======
+    ///Getting the latitude and langitude value from the table view on didselect tap======completed: @escaping () -> () t for execution to return result before it continues
     
     func getLocationDetailData() {
         
@@ -95,6 +119,9 @@ class LocationDetailViewViewController: UIViewController {
         //creat url from string
         guard let url = URL(string: urlString) else {
             print("Could not create the url from:  \(urlString) String")
+            
+         
+            
            return
             
         }
@@ -114,16 +141,33 @@ class LocationDetailViewViewController: UIViewController {
             
             do {
                 
-                let json = try JSONSerialization.jsonObject(with: data!, options:[])
+//                let json = try JSONSerialization.jsonObject(with: data!, options:[])
                 
-                print("THIS IS MY JSON: \(json)")
+                let result = try JSONDecoder().decode(Result.self, from: data!)
+                
+                print("THIS IS MY JSON: \(result)")
+                
+                
+                let temperature = String(Int(result.current.temp.rounded()))
+                print("Result timezone: \(result.timezone)")
+                
+                DispatchQueue.main.async {
+                   self.dateLabel.text = result.timezone
+                    self.tempLabel.text = "\(temperature)°"
+                    self.summaryLabel.text = result.current.weather[0].description
+//                    self.imageView   = result.current.weather[0].icon
+                }
+               
+                
+                
                 
             } catch {
                 
                 print("JSON ERROR: \(error.localizedDescription)")
                 
             }
-       
+            
+             
             
         }
         

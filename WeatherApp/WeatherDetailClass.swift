@@ -8,7 +8,14 @@
 
 import Foundation
 
+
+
+
+
+
 class WeatherDetailClass: WeatherLocation {
     
 
 }
+
+
