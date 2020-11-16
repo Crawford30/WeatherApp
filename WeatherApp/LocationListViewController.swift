@@ -167,6 +167,9 @@ class LocationListViewController: UIViewController {
     //🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷🔷
     @IBAction func addBarBtnPressed(_ sender: UIBarButtonItem) {
         
+//        let controller = MapViewController()
+//        controller.delegate = self
+        
         let nextStoryBoard:
             UIViewController = UIStoryboard(
                 name: "Main", bundle: nil
@@ -328,7 +331,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         var currentLatValue: Double
         var currentLongValue: Double
         var locationName: String
-        var sharedInstanse = WeatherSingleton.shared
+        let sharedInstanse = WeatherSingleton.shared
         
         
         if(shouldShowSearchResults) {
@@ -503,3 +506,13 @@ extension LocationListViewController: UISearchBarDelegate {
 
 
 
+//extension LocationListViewController: AddWeatherDelegate {
+//
+//    func addWeather(weather: WeatherLocation) {
+//        self.dismiss(animated: true) {
+//            self.weatherLocationsArray.append(weather)
+//
+//            self.tabelView.reloadData()
+//        }
+//    }
+//}

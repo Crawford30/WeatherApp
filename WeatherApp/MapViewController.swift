@@ -10,7 +10,16 @@ import UIKit
 import MapKit
 import CoreLocation
 
+//protocol AddWeatherDelegate {
+//
+//    func addWeather(weather: WeatherLocation)
+//
+//}
+
 class MapViewController: UIViewController,UIGestureRecognizerDelegate {
+    
+   // var delegate: AddWeatherDelegate?
+    
     @IBOutlet weak var mapVC: MKMapView!
     @IBOutlet weak var placeMarkerImageView: UIImageView!
     
@@ -37,28 +46,20 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
         
         // placeMarkerImageView.isUserInteractionEnabled = true
         
-        checkLocationServices()
+        
+        //checkLocationServices()
         
         self.setMapview()
     }
     
     
+   
     
     
-    
-    //=========SAVE CURRENT DATA ON PIN IMAGE TAPPED ======
-    @IBAction func saveUserLocation(_ sender: UITapGestureRecognizer) {
-        
-        saveNewLocationObject()
-        
-        print("User location tapped")
-        
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
         
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
-    
     
     
     
@@ -115,18 +116,26 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
                     self.countryName = country
                 }
                 
+                let weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
                 
-                var locationObject: WeatherLocation
+                print("Lon value: \(weatherObject.longitude)")
+                   print("Lat value: \(weatherObject.latitude)")
                 
-                locationObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+                print("Name: \(weatherObject.name)")
                 
-                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: locationObject.self)
-                UserDefaults.standard.set(encodedData, forKey: "weather")
+              //  self.delegate?.addWeather(weather: weather)
                 
-                
-                
-                 print("THIS IS THE Encoded data: \(encodedData)")
-                
+//                var locationObject: WeatherLocation
+//
+//                locationObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+//
+//                let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: locationObject.self)
+//                UserDefaults.standard.set(encodedData, forKey: "weather")
+//
+//
+//
+//                 print("THIS IS THE Encoded data: \(encodedData)")
+//
                 
                 DispatchQueue.main.async {
                     self.addressLabel.text = "\(self.countryName),  \(self.cityName)"

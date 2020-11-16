@@ -263,8 +263,19 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gQm-GO-1FZ"/>
                                 </constraints>
+                                <color key="barTintColor" red="0.24313725489999999" green="0.37647058820000001" blue="0.44705882349999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textAttributes>
                                 <items>
-                                    <navigationItem title="Title" id="sSX-bB-ryb"/>
+                                    <navigationItem title="Map View" id="sSX-bB-ryb">
+                                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="a7J-Qs-FFx">
+                                            <color key="tintColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <connections>
+                                                <action selector="backButton:" destination="Pfr-JO-dkg" id="7Xi-B8-5c9"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZeR-d8-BiL">
@@ -312,11 +323,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbF-1N-5cF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="RF5-1k-mGU">
-                    <connections>
-                        <action selector="saveUserLocation:" destination="Pfr-JO-dkg" id="IA5-3O-0MO"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2566.875" y="103.52112676056338"/>
         </scene>
