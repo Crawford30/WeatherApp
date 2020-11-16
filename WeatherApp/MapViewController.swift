@@ -44,15 +44,13 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // placeMarkerImageView.isUserInteractionEnabled = true
-        
-        
-        //checkLocationServices()
-        
-        self.setMapview()
+      
+       
+       self.setMapview()
         
         
     }
+    
     
     
    
@@ -82,65 +80,129 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
             let touchLocation = gestureReconizer.location(in: mapVC)
             let locationCoordinate = mapVC.convert(touchLocation,toCoordinateFrom: mapVC)
+            
             print("Tapped at lat: \(locationCoordinate.latitude) long: \(locationCoordinate.longitude)")
             
-            let latitudeCordinate  = locationCoordinate.latitude
-            let longitudeCordinate =  locationCoordinate.longitude
             
             
-            // Add below code to get address for touch coordinates.
-            let geoCoder = CLGeocoder()
+              let location = CLLocation(latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
             
             
+           // print("THIS IS LOCATION: \(location)")
             
+            let geocoder = CLGeocoder()
             
-            let location = CLLocation(latitude: latitudeCordinate, longitude: longitudeCordinate)
-            
-            geoCoder.reverseGeocodeLocation(location) {  placemarks, error -> Void in
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 
-                print("THIS IS LOCATION LAT: \(locationCoordinate)")
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                }
                 
-                  print("THIS IS LONGITUDE LAT: \(longitudeCordinate)")
-                
-                // Place details
-                guard let placeMark = placemarks?.first else { return }
-                
-                
-                
-                //City
-                if let city = placeMark.subAdministrativeArea {
-                    print("THIS IS THE CITY: \(city)")
+                else if let placemarks = placemarks {
                     
-                    self.cityName = city
+                    for placemark in placemarks {
+                        
+                        self.countryName  =  placemark.country!
+                        let name  =  placemark.name
+                        let subThourough =   placemark.subThoroughfare
+                        let thoroughfare =  placemark.thoroughfare
+                        let locality = placemark.locality
+//                        placemark.subAdministrativeArea
+                        
+                        
+                        
+                         print("THIS IS THE NAME: \(name)")
+                        
+                         print("THIS IS THE subThourough: \(subThourough)")
+                         print("THIS IS THE LOCALITY: \(locality)")
+                        
+                        
+                        DispatchQueue.main.async {
+                            
+                            self.addressLabel.text! =  name!
+                            
+                        }
+                    }
+                    
+                    self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: locationCoordinate.latitude, longitude: locationCoordinate.longitude)
+                    
+                    self.saveNewLocationObject()
+                    
+                    
+                    
+                   
+                    
+                    
                     
                 }
                 
                 
                 
-                
-                // Country
-                if let country = placeMark.country {
-                    print("THIS IS THE COUNTRY: \(country)")
-                    
-                    self.countryName = country
-                }
-                
-                self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: latitudeCordinate, longitude: longitudeCordinate)
-                
-                
-                self.saveNewLocationObject()
-              
-                       
-                DispatchQueue.main.async {
-                    self.addressLabel.text = "\(self.countryName),  \(self.cityName)"
-                    
-       
-                    
-                }
                 
                 
             }
             
+            
+            
+            
+          
+
+            
+            
+           
+            
+            
+//            geoCoder.reverseGeocodeLocation(location) {  placemarks, error -> Void in
+//
+//
+//
+//                print("THIS IS LOCATION LAT: \(locationCoordinate)")
+//
+//
+//
+//
+//
+//                  print("THIS IS LONGITUDE LAT: \(longitudeCordinate)")
+//
+//                // Place details
+//                guard let placeMark = placemarks?.first else { return }
+//
+//
+//
+//                //City
+//                if let city = placeMark.subAdministrativeArea {
+//                    print("THIS IS THE CITY: \(city)")
+//
+//                    self.cityName = city
+//
+//                }
+                
+                
+                
+                
+//                // Country
+//                if let country = placeMark.country {
+//                    print("THIS IS THE COUNTRY: \(country)")
+//
+//                    self.countryName = country
+//                }
+//
+//                self.weatherObject = WeatherLocation.init(name: self.countryName, latitude: latitudeCordinate, longitude: longitudeCordinate)
+//
+//
+//                self.saveNewLocationObject()
+//
+//
+//                DispatchQueue.main.async {
+//                    self.addressLabel.text = "\(self.countryName),  \(self.cityName)"
+//
+//
+//
+//                }
+                
+                
+//            }
+//
             
             
             
@@ -152,6 +214,10 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
             return
         }
     }
+    
+    
+    
+    
     
     
     func saveNewLocationObject() {
@@ -175,6 +241,18 @@ class MapViewController: UIViewController,UIGestureRecognizerDelegate {
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
     
     
     //=========================
