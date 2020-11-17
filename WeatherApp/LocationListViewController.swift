@@ -70,8 +70,6 @@ class LocationListViewController: UIViewController {
         
         
         
-        
-        
         loadPlacesData()
         
         
@@ -344,7 +342,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         sharedInstanse.setLatValue(theValue: currentLatValue)
         sharedInstanse.setLongValue(theValue: currentLongValue)
         sharedInstanse.setLocationName(theName: locationName)
-        
+
         
         let vc = self.storyboard?.instantiateViewController(identifier: "DetailVC") as! LocationDetailViewViewController
         self.navigationController?.pushViewController(vc, animated: true)

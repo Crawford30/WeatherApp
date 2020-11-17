@@ -24,7 +24,11 @@
                                 <items>
                                     <barButtonItem title="About" id="dqm-GM-ui3"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="BYk-EK-ZWw"/>
-                                    <barButtonItem image="list.dash" catalog="system" id="612-gx-tHW"/>
+                                    <barButtonItem image="list.dash" catalog="system" id="612-gx-tHW">
+                                        <connections>
+                                            <action selector="onListBtnTapped:" destination="oUR-B2-NMi" id="a7H-Ve-pGY"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wef-2x-o6v">
@@ -247,7 +251,7 @@
         <!--Location List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LocationListViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListVC" id="BYZ-38-t0r" customClass="LocationListViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

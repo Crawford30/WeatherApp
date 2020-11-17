@@ -128,6 +128,30 @@ class LocationDetailViewViewController: UIViewController {
         getStoredValuesFromCellTapped()
     }
     
+    
+    @IBAction func onListBtnTapped(_ sender: UIBarButtonItem) {
+        
+        //ListVC
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "ListVC") as! LocationListViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&exclude=hourly,daily&appid={API key}
     
     //https://api.openweathermap.org/data/2.5/onecall?lat=28.79779768641177&lon=33.90499578898962&appid=10f09520ecd91670d285f15548b94940
@@ -143,6 +167,10 @@ class LocationDetailViewViewController: UIViewController {
         
         
     }
+    
+    
+    
+    
     
     
     func getStoredValuesFromCellTapped() {
@@ -190,7 +218,7 @@ class LocationDetailViewViewController: UIViewController {
         let urlString =  "https://api.openweathermap.org/data/2.5/onecall?lat=\(latituteValue)&lon=\(longitudeValue)&exclude=minutely&units=imperial&appid=\(apiKey)"
         
         
-       // print("THIS IS URL STRING IN DEATIL VC: \(urlString)")
+        // print("THIS IS URL STRING IN DEATIL VC: \(urlString)")
         
         //creat url from string
         guard let url = URL(string: urlString) else {
@@ -284,7 +312,7 @@ class LocationDetailViewViewController: UIViewController {
                     
                     
                     
-                   
+                    
                     
                     //======HOURLY DATA ===============
                     
@@ -418,6 +446,9 @@ func systemNameFromID(id: Int, icon: String) -> String {
         return "cloud.drizzle"
         
     case 500, 501, 520, 521,531:
+        return "cloud.rain"
+        
+    case 502, 503, 504, 522:
         return "cloud.heavyrain"
         
     case 511,611...616:
@@ -430,13 +461,16 @@ func systemNameFromID(id: Int, icon: String) -> String {
         return "cloud.fog"
         
     case 721:
-        return  (icon.hasSuffix("d") ? "sun.haze": "cloud.fog")
+        return  (icon.hasSuffix("d") ? "sun.haze": "cloud.fog") //day or night
         
-    case 732,751761,762:
+    case 731,751, 761,762:
         return  (icon.hasSuffix("d") ? "sun.dust": "cloud.fog")
         
     case 771:
         return "wind"
+        
+    case 781:
+        return "tornado"
         
     case 800:
         return  (icon.hasSuffix("d") ? "sun.max": "moon")
@@ -450,6 +484,25 @@ func systemNameFromID(id: Int, icon: String) -> String {
     default:
         return "questionmark.diamond"
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 
